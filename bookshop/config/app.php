@@ -122,7 +122,7 @@ return [
     */
 
     'providers' => [
-
+        'Laracasts\Generators\GeneratorsServiceProvider',
         /*
          * Laravel Framework Service Providers...
          */
@@ -203,5 +203,6 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
     ],
+
 
 ];
