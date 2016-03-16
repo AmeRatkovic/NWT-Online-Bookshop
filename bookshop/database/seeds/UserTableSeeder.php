@@ -9,6 +9,7 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        User::create(array('Ime'=>'Amer','Prezime'=>'Ratkovic','Email'=>'test@hotmail.com','Username'=>'amer','Password'=>'sifra','Tip'=>'Admin'));
+        $password = Hash::make('sifra');
+        User::create(array('Ime'=>'Amer','Prezime'=>'Ratkovic','Email'=>'test@hotmail.com','Username'=>'amer','Password'=>$password,'Tip'=>'Admin'));
     }
 }
