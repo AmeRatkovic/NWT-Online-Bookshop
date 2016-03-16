@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -20,6 +19,13 @@ Route::get('/', function () {
 | Application Routes
 |--------------------------------------------------------------------------
 |
+
+Route::get('users', function () {
+    //$users=User:All();
+    $users='amer';
+    return view('userhome')->('user',$users);
+});
+
 | This route group applies the "web" middleware group to every route
 | it contains. The "web" middleware group is defined in your HTTP
 | kernel and includes session state, CSRF protection, and more.
