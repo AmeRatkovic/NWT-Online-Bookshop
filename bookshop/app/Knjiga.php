@@ -13,7 +13,6 @@ class Knjiga extends Model
     public function hasWritten(){
     return $this->hasMany('Autor','autorid');
 }
-
 public function hasRead(){
     return $this->belongsToMany('Autor','viseautor','knjigaid','autorid');
 }
