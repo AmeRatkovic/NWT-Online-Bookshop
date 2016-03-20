@@ -19,6 +19,10 @@ class CreateRecenzijaTable extends Migration
             $table->string('Komentar',500);
             $table->string('Datum',20);
        /*Dodati forign key*/
+            $table->integer ('userid')->unsigned()->default(0);
+            $table->integer ('knjigaid')->unisgned()->default(0);
+            $table->foreign ('userid')->references('IdUser')->on('User');
+            $table->foreign ('knjigaid')->references ('IdKnjiga')->on ('Knjiga');
             $table->timestamps();
         });
     }

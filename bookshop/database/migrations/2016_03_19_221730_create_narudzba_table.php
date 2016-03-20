@@ -19,6 +19,12 @@ class CreateNarudzbaTable extends Migration
             $table->string('Datum',20);
             $table->double('Popust')->nullable();
             /*Dodati forign key*/
+            $table->integer('knjigaid')->unsigned()->default(0);
+            $table->integer('kupacid')->unsigned()->default(0);
+            $table->integer('kolekcija')->unsigned()->default(0);
+            $table->foreign('knjigaid')->references('idKnjiga')->on('Knjiga');
+            $table->foreign('kupacid')->references('IdKupac')->on('Kupac');
+            $table->foreign('kolekcijaid')->references('IdKolekcija')->on('Kolekcija');
             $table->timestamps();
         });
     }
