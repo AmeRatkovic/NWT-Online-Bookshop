@@ -15,7 +15,7 @@ class CreateRecenzijaTable extends Migration
         Schema::create('recenzija', function (Blueprint $table) {
             $table->increments('idRecnija');
             $table->integer('Ocjena');
-            $table->string('Izdavac',25);
+            //$table->string('Izdavac',25);
             $table->string('Komentar',500);
             $table->string('Datum',20);
        /*Dodati forign key*/

@@ -21,7 +21,7 @@ class CreateKupacTable extends Migration
             $table->string('BrojTelefona',15);
             /*Dodati forign key IdUser*/
             $table->integer ('userid')->unsigned()->defoult(0);
-            $table->forign('userid')->references('IdUser')->on('User');
+            $table->foreign('userid')->references('idUser')->on('User');
             $table->timestamps();
         });
     }

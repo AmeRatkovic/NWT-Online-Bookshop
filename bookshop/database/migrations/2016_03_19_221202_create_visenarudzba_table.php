@@ -16,7 +16,7 @@ class CreateVisenarudzbaTable extends Migration
             $table->integer('narudzbaid')->unsigned()->default(0);
             $table->integer('knjigaid')->unsigned()->default(0);
             $table->foreign('knjigaid')->references('idKnjiga')->on('Knjiga');
-            $table->foreign('idnarudzba')->references('idNarudzba')->on('Narudzba');
+            $table->foreign('narudzbaid')->references('idNarudzba')->on('Narudzba');
             $table->timestamps();
         });
     }

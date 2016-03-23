@@ -21,10 +21,10 @@ class CreateNarudzbaTable extends Migration
             /*Dodati forign key*/
             $table->integer('knjigaid')->unsigned()->default(0);
             $table->integer('kupacid')->unsigned()->default(0);
-            $table->integer('kolekcija')->unsigned()->default(0);
+            $table->integer('kolekcijaid')->unsigned()->default(0);
             $table->foreign('knjigaid')->references('idKnjiga')->on('Knjiga');
-            $table->foreign('kupacid')->references('IdKupac')->on('Kupac');
-            $table->foreign('kolekcijaid')->references('IdKolekcija')->on('Kolekcija');
+            $table->foreign('kupacid')->references('idKupac')->on('Kupac');
+            $table->foreign('kolekcijaid')->references('idKolekcija')->on('Kolekcija');
             $table->timestamps();
         });
     }

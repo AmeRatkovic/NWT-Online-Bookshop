@@ -15,13 +15,17 @@ class CreateKolekcijaTable extends Migration
         Schema::create('kolekcija', function (Blueprint $table) {
             $table->increments('idKolekcija');
             $table->integer('idKnjiga1');
-            $table->integer('idKnjiga2');
-            $table->integer('idKnjiga3');
-            $table->integer('idKnjiga4');
-            $table->integer('idKnjiga5');
+            $table->integer('idKnjiga2')->nullable();
+            $table->integer('idKnjiga3')->nullable();
+            $table->integer('idKnjiga4')->nullable();
+            $table->integer('idKnjiga5')->nullable();
             $table->double('Cijena');
-            $table->double('Popust')->nullable();
-            $table->integer('idNaruzba');
+            $table->double('Popust');
+            $table->foreign('narudzbaid')->references('idNaruzba')->on('Narudzba');
+            $table->integer('narudzbaid')->unsigned()->default(0);
+            $table->foreign('knjigaid')->references('idKnjiga')->on('Knjiga');
+            $table->integer('knjigaid')->unsigned()->default(0);
+
             $table->timestamps();
         });
 
