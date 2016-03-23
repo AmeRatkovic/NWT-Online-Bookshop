@@ -11,5 +11,6 @@ class AutorTableSeeder extends Seeder
     public function run()
     {
         Autor::create(array('Ime'=>'Amer','Prezime'=>'Ratkovic'));
+
     }
 }
