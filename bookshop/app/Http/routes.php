@@ -13,6 +13,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('knjiga', 'BookControler');
+Route::resource('autor', 'AutorController');
+Route::resource('izdavac', 'IzdavacController');
+Route::resource('kupac', 'KupacController');
+Route::resource('user', 'AutorController');
+Route::resource('recenzija', 'RecenzijaController');
+Route::resource('skladiste', 'SkladisteController');
+Route::resource('narudzba', 'NarudzbaController');
+Route::resource('kolekcija', 'KolekcijaController');
+
 
 /*
 |--------------------------------------------------------------------------
