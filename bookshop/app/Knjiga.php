@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Knjiga extends Model
 {
+    protected $primaryKey = 'idKnjiga';
+
     protected $fillable = [
         'Naslov', 'Izdavac', 'Datum','Kategorija','ISBN','Opis','Slika','Cijena','BrojStrana','Popust',
     ];
@@ -16,4 +18,5 @@ class Knjiga extends Model
 public function hasRead(){
     return $this->belongsToMany('Autor','viseautor','knjigaid','autorid');
 }
+
 }
