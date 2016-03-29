@@ -12,7 +12,7 @@ class CreateIzdavacTable extends Migration
      */
     public function up()
     {
-        Schema::create('izdavac', function (Blueprint $table) {
+        Schema::create('izdavacs', function (Blueprint $table) {
             $table->increments('idIzdavac');
             $table->string('Ime',45);
             $table->string('Lokacija',45);

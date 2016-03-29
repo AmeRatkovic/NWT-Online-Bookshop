@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Izdavac;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,8 +15,7 @@ class IzdavacController extends Controller
      */
     public function index()
     {
-        //Index fajl za prikaz knjiga
-        return 'Ovo je index fajl Izdavaca';
+        return Izdavac::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -32,9 +31,15 @@ class IzdavacController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $izdavac = new Izdavac;
+        $izdavac->Ime = $request->input('Ime');
+        $izdavac->Lokacija = $request->input('Lokacija');
+        $izdavac->Email = $request->input('Email');
+        $izdavac->Telefon = $request->input('Telefon');
+        $izdavac ->save();
+        return 'Izdavac dodan';
     }
     /**
      * Display the specified resource.
@@ -44,7 +49,7 @@ class IzdavacController extends Controller
      */
     public function show($id)
     {
-        //
+        return Izdavac::find($id);
     }
 
     /**
@@ -63,9 +68,26 @@ class IzdavacController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request,$id)
     {
-        //
+        $izdavac = Izdavac::find($id);
+
+        if ($request->has('Ime')) {
+            $izdavac->Ime = $request->input('Ime');
+        }
+
+        if ($request->has('Lokacija')) {
+            $izdavac->Lokacija = $request->input('Lokacija');
+        }
+        if ($request->has('Email')) {
+            $izdavac->Email = $request->input('Email');
+        }
+        if ($request->has('Telefon')) {
+            $izdavac->Telefon = $request->input('Telefon');
+        }
+        $izdavac ->save();
+
+        return 'Update uspio.';
     }
     /**
      * Remove the specified resource from storage.
@@ -75,6 +97,7 @@ class IzdavacController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Izdavac::find($id)->delete();
+        return 'Izdavac izbrisan';
     }
 }

@@ -21,6 +21,14 @@ Route::delete('autor/{autor}', 'AutorController@destroy');
 Route::put('autor/{autor}', 'AutorController@update');
 
 Route::resource('izdavac', 'IzdavacController');
+Route::get('izdavac/{izdavac}', 'IzdavacController@show');
+Route::post('izdavac/{izdavac}', 'IzdavacController@store');
+Route::delete('izdavac/{izdavac}', 'IzdavacController@destroy');
+Route::put('izdavac/{izdavac}', 'IzdavacController@update');
+
+
+
+
 Route::resource('kupac', 'KupacController');
 Route::resource('user', 'UserController');
 Route::resource('recenzija', 'RecenzijaController');
