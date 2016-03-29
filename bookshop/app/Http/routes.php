@@ -15,9 +15,14 @@ Route::get('/', function () {
 });
 
 Route::resource('autor', 'AutorController');
+Route::get('autor/{autor}', 'AutorController@show');
+Route::post('autor/{autor}', 'AutorController@store');
+Route::delete('autor/{autor}', 'AutorController@destroy');
+Route::put('autor/{autor}', 'AutorController@update');
+
 Route::resource('izdavac', 'IzdavacController');
 Route::resource('kupac', 'KupacController');
-Route::resource('user', 'AutorController');
+Route::resource('user', 'UserController');
 Route::resource('recenzija', 'RecenzijaController');
 Route::resource('skladiste', 'SkladisteController');
 Route::resource('narudzba', 'NarudzbaController');

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Autor;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,8 +15,7 @@ class AutorController extends Controller
      */
     public function index()
     {
-        //Index fajl za prikaz knjiga
-        return 'Ovo je index fajl Autora';
+        return Autor::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -32,9 +31,13 @@ class AutorController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $autor = new Autor;
+        $autor->Ime = $request->input('Ime');
+        $autor->Prezime = $request->input('Prezime');
+        $autor ->save();
+        return 'Autor dodan';
     }
     /**
      * Display the specified resource.
@@ -44,7 +47,7 @@ class AutorController extends Controller
      */
     public function show($id)
     {
-        //
+        return Autor::find($id);
     }
 
     /**
@@ -63,9 +66,20 @@ class AutorController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request,$id)
     {
-        //
+        $autor = Autor::find($id);
+
+        if ($request->has('Ime')) {
+            $autor->Ime = $request->input('Ime');
+        }
+
+        if ($request->has('Prezime')) {
+            $autor->Prezime = $request->input('Prezime');
+        }
+        $autor ->save();
+
+        return 'Update uspio.';
     }
     /**
      * Remove the specified resource from storage.
@@ -75,6 +89,7 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Autor::find($id)->delete();
+        return 'Autor izbrisan';
     }
 }
