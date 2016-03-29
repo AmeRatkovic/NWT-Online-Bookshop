@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Kupac;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,8 +15,7 @@ class KupacController extends Controller
      */
     public function index()
     {
-        //Index fajl za prikaz knjiga
-        return 'Ovo je index fajl Kupca';
+        return Kupac::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -32,9 +31,17 @@ class KupacController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $kupac = new Kupac;
+        $kupac->Adresa = $request->input('Adresa');
+        $kupac->ZipCode = $request->input('ZipCode');
+        $kupac->Grad = $request->input('Grad');
+        $kupac->Drzava = $request->input('Drzava');
+        $kupac->BrojTelefona = $request->input('BrojTelefona');
+
+        $kupac ->save();
+        return 'Kupac dodan';
     }
     /**
      * Display the specified resource.
@@ -44,7 +51,7 @@ class KupacController extends Controller
      */
     public function show($id)
     {
-        //
+        return Kupac::find($id);
     }
 
     /**
@@ -63,9 +70,30 @@ class KupacController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request,$id)
     {
-        //
+        $kupac = Kupac::find($id);
+
+        if ($request->has('Adresa')) {
+            $kupac->Adresa = $request->input('Adresa');
+        }
+
+        if ($request->has('ZipCode')) {
+            $kupac->ZipCode = $request->input('ZipCode');
+        }
+        if ($request->has('Grad')) {
+            $kupac->Grad = $request->input('Grad');
+        }
+
+        if ($request->has('Drzava')) {
+            $kupac->Drzava = $request->input('Drzava');
+        }
+        if ($request->has('BrojTelefona')) {
+            $kupac->BrojTelefona = $request->input('BrojTelefona');
+        }
+        $kupac ->save();
+
+        return 'Update uspio.';
     }
     /**
      * Remove the specified resource from storage.
@@ -75,6 +103,7 @@ class KupacController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Kupac::find($id)->delete();
+        return 'Kupac izbrisan';
     }
 }
