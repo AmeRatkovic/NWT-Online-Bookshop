@@ -12,7 +12,7 @@ class CreateNarudzbaTable extends Migration
      */
     public function up()
     {
-        Schema::create('narudzba', function (Blueprint $table) {
+        Schema::create('narudzbas', function (Blueprint $table) {
             $table->increments('idNarudzba');
             $table->integer('Kolicina');
             $table->double('TotalCijena')->nullable();

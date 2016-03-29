@@ -12,7 +12,7 @@ class CreateKupacTable extends Migration
      */
     public function up()
     {
-        Schema::create('kupac', function (Blueprint $table) {
+        Schema::create('kupacs', function (Blueprint $table) {
             $table->increments('idKupac');
             $table->string('Adresa',40);
             $table->string('ZipCode',10);

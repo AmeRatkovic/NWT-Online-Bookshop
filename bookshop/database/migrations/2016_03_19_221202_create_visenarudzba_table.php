@@ -12,7 +12,7 @@ class CreateVisenarudzbaTable extends Migration
      */
     public function up()
     {
-        Schema::create('visenarudzba', function (Blueprint $table) {
+        Schema::create('visenarudzbas', function (Blueprint $table) {
             $table->integer('narudzbaid')->unsigned()->default(0);
             $table->integer('knjigaid')->unsigned()->default(0);
             $table->foreign('knjigaid')->references('idKnjiga')->on('Knjiga');

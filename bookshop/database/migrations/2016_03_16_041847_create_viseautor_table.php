@@ -12,7 +12,7 @@ class CreateViseautorTable extends Migration
      */
     public function up()
     {
-        Schema::create('viseautor', function (Blueprint $table) {
+        Schema::create('viseautors', function (Blueprint $table) {
             $table->integer('autorid')->unsigned()->default(0);
             $table->integer('knjigaid')->unsigned()->default(0);
             $table->foreign('autorid')->references('idAutor')->on('Autor');

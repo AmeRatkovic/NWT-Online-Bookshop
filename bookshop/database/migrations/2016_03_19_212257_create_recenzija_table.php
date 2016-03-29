@@ -12,7 +12,7 @@ class CreateRecenzijaTable extends Migration
      */
     public function up()
     {
-        Schema::create('recenzija', function (Blueprint $table) {
+        Schema::create('recenzijas', function (Blueprint $table) {
             $table->increments('idRecnija');
             $table->integer('Ocjena');
             //$table->string('Izdavac',25);

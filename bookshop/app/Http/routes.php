@@ -32,9 +32,21 @@ Route::put('izdavac/{izdavac}', 'IzdavacController@update');
 Route::resource('kupac', 'KupacController');
 Route::resource('user', 'UserController');
 Route::resource('recenzija', 'RecenzijaController');
+
+
 Route::resource('skladiste', 'SkladisteController');
+
+
+
 Route::resource('narudzba', 'NarudzbaController');
+
+
 Route::resource('kolekcija', 'KolekcijaController');
+Route::get('kolekcija/{kolekcija}', 'KolekcijaController@show');
+Route::post('kolekcija/{kolekcija}', 'KolekcijaController@store');
+Route::delete('kolekcija/{kolekcija}', 'KolekcijaController@destroy');
+Route::put('kolekcija/{kolekcija}', 'KolekcijaController@update');
+
 
 Route::resource('knjiga', 'KnjigaController');
 Route::get('knjiga/{knjiga}', 'KnjigaController@show');

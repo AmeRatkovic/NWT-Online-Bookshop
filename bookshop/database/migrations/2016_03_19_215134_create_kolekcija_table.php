@@ -12,7 +12,7 @@ class CreateKolekcijaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kolekcija', function (Blueprint $table) {
+        Schema::create('kolekcijas', function (Blueprint $table) {
             $table->increments('idKolekcija');
             $table->integer('idKnjiga1');
             $table->integer('idKnjiga2')->nullable();
