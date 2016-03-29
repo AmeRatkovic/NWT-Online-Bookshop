@@ -18,11 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'Ime', 'Prezime', 'Email','Username','Password','Tip',
     ];
-    public static $rules = [
-        'Ime'     => 'required',
 
-
-    ];
     /**
      * The attributes excluded from the model's JSON form.
      *

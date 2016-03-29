@@ -38,6 +38,13 @@ Route::put('kupac/{kupac}', 'KupacController@update');
 
 
 Route::resource('user', 'UserController');
+Route::get('user/{user}', 'UserController@show');
+Route::post('user/{user}', 'UserController@store');
+Route::delete('user/{user}', 'UserController@destroy');
+Route::put('user/{user}', 'UserController@update');
+
+
+
 Route::resource('recenzija', 'RecenzijaController');
 
 
