@@ -81,7 +81,43 @@ class KnjigaController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+        $knjiga = Knjiga::find($id);
+
+        if ($request->has('Naslov')) {
+            $knjiga->Naslov = $request->input('Naslov');
+        }
+
+        if ($request->has('Izdavac')) {
+            $knjiga->Izdavac = $request->input('Izdavac');
+        }
+
+        if ($request->has('Datum')) {
+            $knjiga->Datum = $request->input('Datum');
+        }
+
+        if ($request->has('Kategorija')) {
+            $knjiga->Kategorija = $request->input('Kategorija');
+        }
+
+        if ($request->has('ISBN')) {
+            $knjiga->ISBN = $request->input('ISBN');
+        }
+        if ($request->has('Opis')) {
+            $knjiga->Opis = $request->input('Opis');
+        }
+        if ($request->has('Slika')) {
+            $knjiga->Slika = $request->input('Slika');
+        }
+        if ($request->has('Cijena')) {
+            $knjiga->Cijena = $request->input('Cijena');
+        }
+        if ($request->has('BrojStrana')) {
+            $knjiga->BrojStrana = $request->input('BrojStrana');
+        }
+
+        $knjiga ->save();
+
+        return 'Update uspio.';
     }
 
     /**
