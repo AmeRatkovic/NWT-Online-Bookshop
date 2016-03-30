@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 Route::resource('autor', 'AutorController');
-Route::get('autor/{autor}', 'AutorController@show');
+
 Route::post('autor/{autor}', 'AutorController@store');
 Route::delete('autor/{autor}', 'AutorController@destroy');
 Route::put('autor/{autor}', 'AutorController@update');
@@ -35,13 +35,6 @@ Route::post('kupac/{kupac}', 'KupacController@store');
 Route::delete('kupac/{kupac}', 'KupacController@destroy');
 Route::put('kupac/{kupac}', 'KupacController@update');
 
-
-
-Route::resource('user', 'UserController');
-Route::get('user/{user}', 'UserController@show');
-Route::post('user/{user}', 'UserController@store');
-Route::delete('user/{user}', 'UserController@destroy');
-Route::put('user/{user}', 'UserController@update');
 
 
 
@@ -74,18 +67,23 @@ Route::put('knjiga/{knjiga}', 'KnjigaController@update');
 |--------------------------------------------------------------------------
 |
 
-Route::get('users', function () {
-    //$users=User:All();
-    $users='amer';
-    return view('userhome')->('user',$users);
-});
-
 | This route group applies the "web" middleware group to every route
 | it contains. The "web" middleware group is defined in your HTTP
 | kernel and includes session state, CSRF protection, and more.
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => 'web'], function () {
+
+    Route::auth();
+
+    Route::get('autor/{autor}', 'AutorController@show')->middleware('isAdmin');
+
+    Route::resource('user', 'UserController');
+    Route::get('user/{user}', 'UserController@show');
+    Route::post('user/{user}', 'UserController@store');
+    Route::delete('user/{user}', 'UserController@destroy');
+    Route::put('user/{user}', 'UserController@update');
+
+    Route::get('/home', 'HomeController@index');
 });

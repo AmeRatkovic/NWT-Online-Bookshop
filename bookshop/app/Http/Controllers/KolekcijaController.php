@@ -49,7 +49,7 @@ class KolekcijaController extends Controller
      */
     public function show($id)
     {
-        //
+       return Kolekcija::find($id);
     }
 
     /**

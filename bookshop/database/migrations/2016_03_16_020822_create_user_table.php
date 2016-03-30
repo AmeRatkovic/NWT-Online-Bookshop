@@ -16,10 +16,11 @@ class CreateUserTable extends Migration
             $table->increments('idUser');
             $table->string('Ime',20);
             $table->string('Prezime',20);
-            $table->string('Email',30)->unique();
-            $table->string('Username',20);
-            $table->string('Password',100);
+            $table->string('email',30)->unique();
+            $table->string('username',20);
+            $table->string('password',200);
             $table->string('Tip',13);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
