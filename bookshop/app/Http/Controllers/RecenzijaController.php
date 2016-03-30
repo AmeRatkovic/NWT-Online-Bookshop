@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Recenzija;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,8 +15,8 @@ class RecenzijaController extends Controller
      */
     public function index()
     {
-        //Index fajl za prikaz knjiga
-        return 'Ovo je index fajl Recenzije';
+        //Index fajl za prikaz recenzije
+        return Recenzija::all();
     }
     /**
      * Show the form for creating a new resource.
@@ -32,10 +32,15 @@ class RecenzijaController extends Controller
      *
      * @return Response
      */
-    public function store()
-    {
-        //
-    }
+    public function store(Request $request)
+{
+    $recenzija = new Recenzija;
+    $recenzija->Ocjena = $request->input('Ocjena');
+    $recenzija->Komentar = $request->input('Komentar');
+    $recenzija->Datum = $request->input('Datum');
+    $recenzija ->save();
+    return 'Recenzija dodana';
+}
     /**
      * Display the specified resource.
      *
@@ -44,7 +49,7 @@ class RecenzijaController extends Controller
      */
     public function show($id)
     {
-        //
+        return Recenzija::find($id);
     }
 
     /**
@@ -63,9 +68,23 @@ class RecenzijaController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request,$id)
     {
-        //
+        $recenzija = Recenzija::find($id);
+
+        if ($request->has('Ocjena')) {
+            $recenzija->Ocjena = $request->input('Ocjena');
+        }
+
+        if ($request->has('Komentar')) {
+            $recenzija->Komentar = $request->input('Komentar');
+        }
+        if ($request->has('Datum')) {
+            $recenzija->Datum = $request->input('Datum');
+        }
+        $recenzija ->save();
+
+        return 'Update uspio.';
     }
     /**
      * Remove the specified resource from storage.
@@ -75,6 +94,7 @@ class RecenzijaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Recenzija::find($id)->delete();
+        return 'Recnzija izbrisana';
     }
 }
