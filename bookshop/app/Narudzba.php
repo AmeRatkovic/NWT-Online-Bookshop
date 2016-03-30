@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Narudzba extends Model
 {
     protected $fillable = [
-        'Kolicina', 'TotalCijena', 'Datum','POpust',
+        'Kolicina', 'TotalCijena', 'Datum','Popust',
     ];
 }
 public function GetKnjiga(){

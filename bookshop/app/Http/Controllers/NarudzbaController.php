@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Narudzba;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,8 +16,8 @@ class NarudzbaController extends Controller
      */
     public function index()
     {
-        //Index fajl za prikaz knjiga
-        return 'Ovo je index fajl Narudzba';
+        //Index fajl za prikaz narudzbe
+        return Narudzba::find($id);
     }
     /**
      * Show the form for creating a new resource.
@@ -32,9 +33,15 @@ class NarudzbaController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $narudzba = new Narudzba;
+        $narudzba->Kolicina = $request->input('Kolicina');
+        $narudzba->TotalCijena = $request->input('TotalCijena');
+        $narudzba->Datum = $request->input('Datum');
+        $narudzba->Popust = $request->input('Popust');
+        $narudzba ->save();
+        return 'Narudzba dodana';
     }
     /**
      * Display the specified resource.
@@ -63,9 +70,26 @@ class NarudzbaController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request,$id)
     {
-        //
+        $narudzba =  Narudzba::find($id);
+
+        if ($request->has('Kolicina')) {
+            $narudzba->Kolicina = $request->input('Kolicina');
+        }
+
+        if ($request->has('TotalCijena')) {
+            $narudzba->TotalCijena = $request->input('TotalCijena');
+        }
+        if ($request->has('Datum')) {
+            $narudzba->Popust = $request->input('Datum');
+        }
+        if ($request->has('Popust')) {
+            $narudzba->Popust = $request->input('Popust');
+        }
+        $narudzba ->save();
+
+        return 'Narudzba updateovana.';
     }
     /**
      * Remove the specified resource from storage.
@@ -75,6 +99,7 @@ class NarudzbaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Narudzba::find($id)->delete();
+        return 'Narudzba izbrisana';
     }
 }

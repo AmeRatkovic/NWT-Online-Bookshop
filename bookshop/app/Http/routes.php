@@ -27,14 +27,11 @@ Route::delete('izdavac/{izdavac}', 'IzdavacController@destroy');
 Route::put('izdavac/{izdavac}', 'IzdavacController@update');
 
 
-
-
 Route::resource('kupac', 'KupacController');
 Route::get('kupac/{kupac}', 'KupacController@show');
 Route::post('kupac/{kupac}', 'KupacController@store');
 Route::delete('kupac/{kupac}', 'KupacController@destroy');
 Route::put('kupac/{kupac}', 'KupacController@update');
-
 
 
 Route::resource('user', 'UserController');
@@ -44,16 +41,25 @@ Route::delete('user/{user}', 'UserController@destroy');
 Route::put('user/{user}', 'UserController@update');
 
 
-
 Route::resource('recenzija', 'RecenzijaController');
+Route::get('recenzija/{recenzija}', 'RecenzijaController@show');
+Route::post('recenzija/{recenzija}', 'RecenzijaController@store');
+Route::delete('recenzija/{recenzija}', 'RecenzijaController@destroy');
+Route::put('recenzija/{recenzija}', 'RecenzijaController@update');
 
 
 Route::resource('skladiste', 'SkladisteController');
-
+Route::get('skladiste/{skladiste}', 'SkladisteController@show');
+Route::post('skladiste/{skladiste}', 'SkladisteController@store');
+Route::delete('skladiste/{skladiste}', 'SkladisteController@destroy');
+Route::put('skladiste/{skladiste}', 'SkladisteController@update');
 
 
 Route::resource('narudzba', 'NarudzbaController');
-
+Route::get('narudzba/{narudzba}', 'NarudzbaController@show');
+Route::post('narudzba/{narudzba}', 'NarudzbaController@store');
+Route::delete('narudzba/{narudzba}', 'NarudzbaController@destroy');
+Route::put('narudzba/{narudzba}', 'NarudzbaController@update');
 
 Route::resource('kolekcija', 'KolekcijaController');
 Route::get('kolekcija/{kolekcija}', 'KolekcijaController@show');
