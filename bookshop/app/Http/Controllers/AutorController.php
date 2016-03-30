@@ -45,12 +45,8 @@ class AutorController extends Controller
         $validator = Validator::make($request->all(),  $rules);
 
         if ($validator->fails()) {
-            $errors = $validator->errors(); //here's the magic
-
-            foreach($rules as $key => $value) {
-                if($errors->has($key)) {
-                    echo $errors;
-            }
+            $errors = $validator->errors();
+            echo $errors;
             }
         }
         else
@@ -107,11 +103,7 @@ class AutorController extends Controller
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            foreach($rules as $key => $value) {
-                if($errors->has($key)) {
-                    echo $errors;
-                }
-            }
+            echo $errors;
         }
         else
         {
