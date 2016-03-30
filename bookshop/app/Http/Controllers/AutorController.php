@@ -6,7 +6,7 @@ use Gate;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Validator;
 use App\Http\Requests;
 
 class AutorController extends Controller
@@ -38,11 +38,29 @@ class AutorController extends Controller
      */
     public function store(Request $request)
     {
-        $autor = new Autor;
-        $autor->Ime = $request->input('Ime');
-        $autor->Prezime = $request->input('Prezime');
-        $autor ->save();
-        return 'Autor dodan';
+        $rules = array(
+            'Ime' => 'required|min:3',
+            'Prezime' => 'required|min:3',
+        );
+        $validator = Validator::make($request->all(),  $rules);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors(); //here's the magic
+
+            foreach($rules as $key => $value) {
+                if($errors->has($key)) {
+                    echo $errors;
+            }
+            }
+        }
+        else
+        {
+            $autor = new Autor;
+            $autor->Ime = $request->input('Ime');
+            $autor->Prezime = $request->input('Prezime');
+            $autor ->save();
+            return 'Autor dodan';
+        }
     }
     /**
      * Display the specified resource.
@@ -80,6 +98,24 @@ class AutorController extends Controller
      */
     public function update(Request $request,$id)
     {
+
+        $rules = array(
+            'Ime' => 'required|min:3',
+            'Prezime' => 'required|min:3',
+        );
+        $validator = Validator::make($request->all(),  $rules);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            foreach($rules as $key => $value) {
+                if($errors->has($key)) {
+                    echo $errors;
+                }
+            }
+        }
+        else
+        {
+
         $autor = Autor::find($id);
 
         if ($request->has('Ime')) {
@@ -92,6 +128,7 @@ class AutorController extends Controller
         $autor ->save();
 
         return 'Update uspio.';
+        }
     }
     /**
      * Remove the specified resource from storage.
