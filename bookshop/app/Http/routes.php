@@ -78,7 +78,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('autor/{autor}', 'AutorController@show')->middleware('isAdmin');
-
     Route::resource('user', 'UserController');
     Route::get('user/{user}', 'UserController@show');
     Route::post('user/{user}', 'UserController@store');
