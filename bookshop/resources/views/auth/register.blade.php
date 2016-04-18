@@ -10,20 +10,32 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Name</label>
+                        <div class="form-group{{ $errors->has('Ime') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Ime</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control" name="Ime" value="{{ old('Ime') }}">
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('Ime'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('Ime') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('Prezime') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Prezime</label>
 
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="Prezime" value="{{ old('Prezime') }}">
+
+                                @if ($errors->has('Prezime'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('Prezime') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">E-Mail Address</label>
 
@@ -63,6 +75,13 @@
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Captcha</label>
+                            <div class="col-md-6">
+                                {!! app('captcha')->display(); !!}
                             </div>
                         </div>
 

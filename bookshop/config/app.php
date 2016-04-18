@@ -123,6 +123,7 @@ return [
 
     'providers' => [
         'Laracasts\Generators\GeneratorsServiceProvider',
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -155,6 +156,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
 
     ],
 
