@@ -48,7 +48,7 @@ class AutorController extends Controller
             $errors = $validator->errors();
             echo $errors;
             }
-        }
+
         else
         {
             $autor = new Autor;
