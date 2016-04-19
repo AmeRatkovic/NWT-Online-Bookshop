@@ -85,4 +85,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('user/{user}', 'UserController@update');
 
     Route::get('/home', 'HomeController@index');
+
+    /*Ruta za email*/
+    Route::get('password/email', 'Auth\PasswordController@getEmail');
+    Route::post('password/email', 'Auth\PasswordController@postEmail');
+    Route::get('password/reset {token}', 'Auth\PasswordController@getReset');
+    Route::post('password/reset', 'Auth\PasswordController@postReset');
+
 });
