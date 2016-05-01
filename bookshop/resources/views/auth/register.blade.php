@@ -7,7 +7,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+
+                    @if (Session::has('message'))
+                        <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
+                    @endif
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/registracija') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('Ime') ? ' has-error' : '' }}">

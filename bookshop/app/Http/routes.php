@@ -86,10 +86,28 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
-    /*Ruta za email*/
+    //Ruta za email
     Route::get('password/email', 'Auth\PasswordController@getEmail');
     Route::post('password/email', 'Auth\PasswordController@postEmail');
     Route::get('password/reset {token}', 'Auth\PasswordController@getReset');
     Route::post('password/reset', 'Auth\PasswordController@postReset');
 
+
+
+    // Authentication...
+    Route::get('prijava', 'Auth\AuthController@getLogin');
+    Route::post('prijava', 'PrijavaController@postLogin');
+    $this->get('odjava', 'Auth\AuthController@logout');
+
+    // Password reset...
+    $this->get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+    $this->post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+    $this->post('password/reset', 'Auth\PasswordController@reset');
+
+    // Registracija...
+    Route::get('registracija', 'Auth\AuthController@getRegister');
+    Route::post('registracija', 'RegistracijaController@postRegister');
+    Route::get('registracija/potvrda/{konfirmacijskiKod}', 'RegistracijaController@confirm');
+
+    Route::get('home', 'HomeController@index');
 });

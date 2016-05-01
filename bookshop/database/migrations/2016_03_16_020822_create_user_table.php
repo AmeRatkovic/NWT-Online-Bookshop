@@ -19,6 +19,8 @@ class CreateUserTable extends Migration
             $table->string('email',30)->unique();
             $table->string('username',20);
             $table->string('password',200);
+            $table->boolean('potvrdjeno')->default(0);
+            $table->string('konfirmacijski_kod')->nullable();
             $table->string('Tip',13);
             $table->rememberToken();
             $table->timestamps();
