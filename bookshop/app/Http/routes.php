@@ -109,5 +109,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('registracija', 'RegistracijaController@postRegister');
     Route::get('registracija/potvrda/{konfirmacijskiKod}', 'RegistracijaController@confirm');
 
-    Route::get('home', 'HomeController@index');
+    //Route::get('home', 'HomeController@index');
 });

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 use App\Http\Requests;
-use Session, Input, Validator, Redirect;
+use Session, Validator, Redirect;
 use Auth;
 class PrijavaController extends Controller
 {
