@@ -28,6 +28,6 @@ class CreateVisenarudzbaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('visenarudzba');
+        Schema::drop('visenarudzbas');
     }
 }

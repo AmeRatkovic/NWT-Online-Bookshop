@@ -38,6 +38,6 @@ class CreateKolekcijaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('kolekcija');
+        Schema::drop('kolekcijas');
     }
 }

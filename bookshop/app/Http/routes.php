@@ -54,12 +54,19 @@ Route::post('kolekcija/{kolekcija}', 'KolekcijaController@store');
 Route::delete('kolekcija/{kolekcija}', 'KolekcijaController@destroy');
 Route::put('kolekcija/{kolekcija}', 'KolekcijaController@update');
 
+Route::group(array('prefix' => 'api'), function() {
 
-Route::resource('knjiga', 'KnjigaController');
+    // since we will be using this just for CRUD, we won't need create and edit
+    // Angular will handle both of those forms
+    // this ensures that a user can't access api/create or api/edit when there's nothing there
+   Route::resource('knjiga', 'KnjigaController');
 Route::get('knjiga/{knjiga}', 'KnjigaController@show');
 Route::post('knjiga/{knjiga}', 'KnjigaController@store');
 Route::delete('knjiga/{knjiga}', 'KnjigaController@destroy');
 Route::put('knjiga/{knjiga}', 'KnjigaController@update');
+  Route::get('addbook', 'KnjigaController@AddBook');
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +99,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('password/reset {token}', 'Auth\PasswordController@getReset');
     Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
+   //Route::post('knjiga/AddBook/{knjiga}', 'KnjigaController@AddBook');
 
     // Authentication...
     Route::get('prijava', 'Auth\AuthController@getLogin');
@@ -105,9 +112,12 @@ Route::group(['middleware' => 'web'], function () {
     $this->post('password/reset', 'Auth\PasswordController@reset');
 
     // Registracija...
-    Route::get('registracija', 'Auth\AuthController@getRegister');
-    Route::post('registracija', 'RegistracijaController@postRegister');
-    Route::get('registracija/potvrda/{konfirmacijskiKod}', 'RegistracijaController@confirm');
+    Route::get('register', 'Auth\AuthController@getRegister');
+     Route::post('register', 'RegisterController@postRegister');
+    Route::get('register/confirmation/{konfirmacijskiKod}', 'RegisterController@confirm');
 
+Route::get('registracija', 'Auth\AuthController@getRegister');
+ Route::post('registracija', 'RegistracijaController@postRegister');
+    Route::get('registracija/potvrda/{konfirmacijskiKod}', 'RegistracijaController@confirm');
     //Route::get('home', 'HomeController@index');
 });

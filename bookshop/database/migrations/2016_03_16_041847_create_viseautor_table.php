@@ -28,6 +28,6 @@ class CreateViseautorTable extends Migration
      */
     public function down()
     {
-        Schema::drop('viseautor');
+        Schema::drop('viseautors');
     }
 }

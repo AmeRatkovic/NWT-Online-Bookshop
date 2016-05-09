@@ -36,6 +36,6 @@ class CreateNarudzbaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('narudzba');
+        Schema::drop('narudzbas');
     }
 }

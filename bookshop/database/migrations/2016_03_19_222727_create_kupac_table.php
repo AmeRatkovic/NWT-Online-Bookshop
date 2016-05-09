@@ -33,6 +33,6 @@ class CreateKupacTable extends Migration
      */
     public function down()
     {
-        Schema::drop('kupac');
+        Schema::drop('kupacs');
     }
 }

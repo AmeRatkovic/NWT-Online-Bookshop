@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\Knjiga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
+use Illuminate\Routing\Controller;
 use App\Http\Requests;
 
 class KnjigaController extends Controller
@@ -47,7 +49,7 @@ class KnjigaController extends Controller
          $knjiga->Cijena = $request->input('Cijena');
          $knjiga->BrojStrana = $request->input('BrojStrana');
         $knjiga ->save();
-        return 'Knjiga dodana';
+        return 'Knjiga dodana1';
     }
 
     /**
@@ -130,5 +132,14 @@ class KnjigaController extends Controller
     {
          Knjiga::find($id)->delete();
         return 'Knjiga izbrisana';
+    }
+
+
+    public function AddBook()
+    {
+        
+          //return 'Knjiga dodanaw';
+
+     return view('addbook');
     }
 }

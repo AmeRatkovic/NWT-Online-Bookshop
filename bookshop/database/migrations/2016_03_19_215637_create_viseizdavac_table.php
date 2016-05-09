@@ -28,6 +28,6 @@ class CreateViseizdavacTable extends Migration
      */
     public function down()
     {
-        Schema::drop('viseizdavac');
+        Schema::drop('viseizdavacs');
     }
 }

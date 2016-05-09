@@ -31,6 +31,6 @@ class CreateIzdavacTable extends Migration
      */
     public function down()
     {
-        Schema::drop('izdavac');
+        Schema::drop('izdavacs');
     }
 }

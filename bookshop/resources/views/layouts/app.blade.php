@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
+
+<!-- CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> <!-- load bootstrap via cdn -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body        { padding-top:30px; }
+        form        { padding-bottom:20px; }
+        .knjiga    { padding-bottom:20px; }
+    </style>
+    
+    <!-- JS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script> <!-- load angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+
+
+    <!-- ANGULAR -->
+    <!-- all angular resources will be loaded from the /public folder -->
+        <script src="js/controllers/mainCtrl.js"></script> <!-- load our controller -->
+        <script src="js/services/commentService.js"></script> <!-- load our service -->
+        <script src="js/app.js"></script> <!-- load our application -->
+
+    
+
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -25,7 +49,9 @@
         }
     </style>
 </head>
-<body id="app-layout">
+<body id="app-layout" class="container" ng-app="commentApp" ng-controller="mainController" >
+
+
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -42,20 +68,24 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Laravel
                 </a>
+
+
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Početna Bookshop</a></li>
+                    <li><a href="{{ url('/home') }}">Bookshop</a></li>
+
+                    <li><a href="{{ url('/api/addbook') }}">Add book</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/prijava') }}">Prijava</a></li>
-                        <li><a href="{{ url('/registracija') }}">Registracija</a></li>
+                         <li><a href="{{ url('/prijava') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -72,8 +102,7 @@
         </div>
     </nav>
 
-    @yield('content')
-
+   @yield('content')
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

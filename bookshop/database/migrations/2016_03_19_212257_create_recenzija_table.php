@@ -34,6 +34,6 @@ class CreateRecenzijaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('recenzija');
+        Schema::drop('recenzijas');
     }
 }
