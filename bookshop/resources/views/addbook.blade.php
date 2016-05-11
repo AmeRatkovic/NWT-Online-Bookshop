@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@if (Auth::user()->Tip=='Admin')
 @section('content')
 
 <div class="col-md-6 col-md-offset-3">
@@ -110,3 +110,4 @@
     </form>
       </div>     </div>
 @endsection
+@endif

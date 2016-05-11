@@ -66,7 +66,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    Bookshop
                 </a>
 
 
@@ -75,9 +75,13 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Bookshop</a></li>
-
-                    <li><a href="{{ url('/api/addbook') }}">Add book</a></li>
+                    
+                     @if (!Auth::guest())
+                    @if (Auth::user()->Tip=='Admin')
+                    <li><a href="{{ url('/home') }}">Delete book</a></li>
+                    <li><a href="{{ url('/addbook') }}">Add book</a></li>
+                    @endif
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -89,13 +93,18 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                             @if (Auth::user()->Tip=='Admin')
+                                {{ Auth::user()->Tip }} <span class="caret"></span>
+                               @else
                                 {{ Auth::user()->Ime }} <span class="caret"></span>
+                                @endif
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/odjava') }}"><i class="fa fa-btn fa-sign-out"></i>Odjava</a></li>
+                                <li><a href="{{ url('/odjava') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
+                         <li><a href="{{ url('/cart') }}">Cart</a></li>
                     @endif
                 </ul>
             </div>

@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 use App\Knjiga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-
-use Illuminate\Routing\Controller;
+use Auth;
 use App\Http\Requests;
-
+use Validator, Redirect, Session;
 class KnjigaController extends Controller
 {
     /**
@@ -139,7 +138,10 @@ class KnjigaController extends Controller
     {
         
           //return 'Knjiga dodanaw';
-
+        if (Auth::user())
+        
      return view('addbook');
+ else
+    return Redirect::to('/');
     }
 }

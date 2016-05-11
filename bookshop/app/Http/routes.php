@@ -10,9 +10,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+
+
+
+
+
 
 Route::resource('autor', 'AutorController');
 
@@ -64,7 +68,7 @@ Route::get('knjiga/{knjiga}', 'KnjigaController@show');
 Route::post('knjiga/{knjiga}', 'KnjigaController@store');
 Route::delete('knjiga/{knjiga}', 'KnjigaController@destroy');
 Route::put('knjiga/{knjiga}', 'KnjigaController@update');
-  Route::get('addbook', 'KnjigaController@AddBook');
+  
 });
 
 
@@ -81,7 +85,9 @@ Route::put('knjiga/{knjiga}', 'KnjigaController@update');
 */
 
 Route::group(['middleware' => 'web'], function () {
-
+Route::get('/', function () {
+    return view('welcome');
+});
     Route::auth();
 
     Route::get('autor/{autor}', 'AutorController@show')->middleware('isAdmin');
@@ -92,7 +98,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('user/{user}', 'UserController@update');
 
     Route::get('/home', 'HomeController@index');
+Route::get('/addProduct/{productId}', 'CartController@addItem');
+Route::get('/removeItem/{productId}', 'CartController@removeItem');
+Route::get('/cart', 'CartController@showCart');
 
+Route::get('addbook', 'KnjigaController@AddBook');
     //Ruta za email
     Route::get('password/email', 'Auth\PasswordController@getEmail');
     Route::post('password/email', 'Auth\PasswordController@postEmail');
