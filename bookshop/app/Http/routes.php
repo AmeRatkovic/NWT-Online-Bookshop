@@ -84,9 +84,13 @@ Route::put('knjiga/{knjiga}', 'KnjigaController@update');
 |
 */
 
+Route::get('/#/prijava', 'Auth\AuthController@getLogin');
+    Route::post('/#/prijava', 'PrijavaController@postLogin');
+
+
 Route::group(['middleware' => 'web'], function () {
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
     Route::auth();
 
