@@ -17,7 +17,6 @@
 <script src="ang/scotchAppService.js"></script>
 
 
-
 </head>
 
 <!-- define angular controller -->

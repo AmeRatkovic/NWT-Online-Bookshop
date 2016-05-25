@@ -16,7 +16,9 @@ class KnjigaController extends Controller
      */
     public function index()
     {
-        return Knjiga::all();
+        $items = Knjiga::paginate(10);
+ 
+        return $items;
     }
 
     /**

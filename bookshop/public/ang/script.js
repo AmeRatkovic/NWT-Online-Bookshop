@@ -22,9 +22,20 @@
             // route for the contact page
             .when('/contact', {
                 templateUrl : 'pages/contact.html',
-                controller  : 'contactController'
-            });
+                //controller  : 'RadarCtrl'
+            })
+
+            .when('/book/:idKnjiga', {
+        templateUrl: 'pages/book-detail.html',
+        controller  : 'BookController',
+        service : 'scotchApp.services'
+        });
     });
+
+
+
+      
+
 scotchApp.config(function($translateProvider) {
   $translateProvider.translations('en', {
     HEADLINE: 'Hello there, This is my awesome app!',
@@ -67,6 +78,33 @@ scotchApp.config(function($translateProvider) {
   $translateProvider.preferredLanguage('en');
 });
 
+
+
+
+ scotchApp.controller('BookController', function($scope, $http, $routeParams) {
+    $scope.idKnjiga = $routeParams.idKnjiga;
+    $scope.knjiga = {};
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:8000/api/knjiga/' + $scope.idKnjiga
+       
+    }).success(function(data) {
+            $scope.knjiga = data;
+        
+    }).error(function (data, status) {
+        console.log("Request Failed");
+    });
+
+    //Get our helper methods
+   // $scope.GetRatingImage = GetRatingImage;
+   // $scope.GetActualPrice = GetActualPrice;
+   // $scope.HasDiscount = HasDiscount;
+    });
+
+
+
+
 scotchApp.controller('TranslateController', function($translate, $scope) {
   $scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
@@ -79,17 +117,30 @@ scotchApp.controller('TranslateController', function($translate, $scope) {
     // object to hold all the data for the new comment form
     $scope.commentData = {};
 
+     
+
     // loading variable to show the spinning loading icon
     $scope.loading = true;
 
     // get all the comments first and bind it to the $scope.comments object
     // use the function we created in our service
     // GET ALL COMMENTS ==============
-    Knjiga.get()
-        .success(function(data) {
-            $scope.knjigas = data;
-            $scope.loading = false;
-        });
+    $scope.knjigas = [];
+            $scope.lastpage=1;
+ 
+            $scope.init = function() {
+                $scope.lastpage=1;
+                $http({
+                    url: 'http://localhost:8000/api/knjiga',
+                    method: "GET",
+                    params: {page:  $scope.lastpage}
+                }).success(function(data, status, headers, config) {
+                    $scope.knjigas = data.data;
+                    $scope.currentpage = data.current_page;
+                });
+            };
+ 
+            $scope.init();
 
          // function to handle submitting the form
     // SAVE A COMMENT ================
@@ -130,6 +181,19 @@ scotchApp.controller('TranslateController', function($translate, $scope) {
 
             });
     };
+$scope.loadMore = function() {
+                $scope.lastpage +=1;
+                $http({
+                    url: 'http://localhost:8000/api/knjiga',
+                    method: "GET",
+                    params: {page:  $scope.lastpage}
+                }).success(function (data, status, headers, config) {
+ $scope.knjigas = data.data;
+                    $scope.currentpage = data.current_page;
+                  //  $scope.events = $scope.knjigas.concat(data.data);
+ 
+                });
+            };
 
 });
 
@@ -197,3 +261,4 @@ scotchApp.controller('TranslateController', function($translate, $scope) {
     scotchApp.controller('contactController', function($scope) {
         $scope.message = 'Contact us! JK. This is just a demo.';
     });
+

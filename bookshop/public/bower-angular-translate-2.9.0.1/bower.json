@@ -7,6 +7,7 @@
   "author": "Pascal Precht",
   "license": "MIT",
   "dependencies": {
-    "angular": ">=1.2.26 <=1.5.0"
+    "angular": ">=1.2.26 <=1.5.0",
+    "angular-chart.js": "^0.10.2"
   }
 }

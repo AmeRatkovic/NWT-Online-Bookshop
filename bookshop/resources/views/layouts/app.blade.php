@@ -1,93 +1,54 @@
 <!DOCTYPE html>
-<html >
+
+<!-- define angular app -->
+<html ng-app="scotchApp">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SCROLLS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 
-    <title>Laravel</title>
-
-<!-- CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> <!-- load bootstrap via cdn -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <style>
-        body        { padding-top:30px; }
-        form        { padding-bottom:20px; }
-        .knjiga    { padding-bottom:20px; }
-    </style>
-    
-    <!-- JS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script> <!-- load angular -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
-
-
-    <!-- ANGULAR -->
-    <!-- all angular resources will be loaded from the /public folder -->
-        <script src="js/controllers/mainCtrl.js"></script> <!-- load our controller -->
+  <!-- SPELLS -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+<script src="bower-angular-translate-2.9.0.1/angular-translate.js"></script>
+  <script src="ang/script.js"></script>
+<script src="ang/scotchAppService.js"></script>
+<script src="js/controllers/mainCtrl.js"></script> <!-- load our controller -->
         <script src="js/services/commentService.js"></script> <!-- load our service -->
         <script src="js/app.js"></script> <!-- load our application -->
 
-    
 
-
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
 </head>
-<body id="app-layout" class="container" ng-app="commentApp" ng-controller="mainController" >
+
+<!-- define angular controller -->
+<body ng-app="commentApp" ng-controller="mainController">
+
+  <nav class="navbar navbar-default">
+    <div class="container"  ng-controller="TranslateController">
+
+      <div class="navbar-header">
+        
+
+      </div>
+
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="{{ url('/#/') }}"<i class="fa fa-home"></i> Bookshop</a></li>
+        <li><a href="{{ url('/#/about') }}"><i class="fa fa-shield"></i> @{{ 'ADDBOOK' | translate }}</a></li>
+        <li><a href="{{ url('/#/contact') }}"><i class="fa fa-comment"></i> @{{ 'CONTACT' | translate }}</a></li>
+        
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li><a href="{{ url('/prijava') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">@{{ 'REGISTER' | translate }}</a></li>
+                    <li>    
+  <a ng-click="changeLanguage('ba')" translate="BUTTON_TEXT_BA"></a></li>
+   <li> <a ng-click="changeLanguage('en')" translate="BUTTON_TEXT_EN"></a>
 
 
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Bookshop
-                </a>
-
-
-            </div>
-
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    
-                     @if (!Auth::guest())
-                    @if (Auth::user()->Tip=='Admin')
-                    <li><a href="{{ url('/home') }}">Delete book</a></li>
-                    <li><a href="{{ url('/addbook') }}">Add book</a></li>
-                    @endif
-                    @endif
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
+ @if (Auth::guest())
                          <li><a href="{{ url('/prijava') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
@@ -106,15 +67,27 @@
                         </li>
                          <li><a href="{{ url('/cart') }}">Cart</a></li>
                     @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+   </li>
+      </ul>
+    </div>
+  </nav>
 
+  <div id="main">
+  
+    <!-- angular templating -->
+    <!-- this is where content will be injected -->
    @yield('content')
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+  </div>
+  
+  <footer class="text-center">
+   
+  
+    <p> <a href="www.bookshop.ba"> Copyright 2016</a></p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
+
 </html>
