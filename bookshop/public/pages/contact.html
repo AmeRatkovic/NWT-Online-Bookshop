@@ -1,4 +1,4 @@
-<div class="jumbotron text-center">
+<div class="jumbotron text-center"   ng-controller="BarCtrl">
 
 	<h1>Contact Page</h1>
 
@@ -6,4 +6,9 @@
 
 <h2>{{ 'HEADLINE' | translate }}</h2>
 <p>{{ 'INTRO_TEXT' | translate }}</p>
+
+<canvas id="bar" class="chart chart-bar"
+  chart-data="data" chart-labels="labels"> chart-series="series"
+</canvas>
+
 </div>

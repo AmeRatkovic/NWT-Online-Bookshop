@@ -19,6 +19,11 @@
         <script src="js/services/commentService.js"></script> <!-- load our service -->
         <script src="js/app.js"></script> <!-- load our application -->
 
+<script src="bower-angular-translate-2.9.0.1/bower_components/angular-chart.js/dist/angular-chart.css" >
+</script>
+<script src="bower-angular-translate-2.9.0.1/bower_components/Chart.js/Chart.js"></script>
+<script src="bower-angular-translate-2.9.0.1/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+
 
 </head>
 

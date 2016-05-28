@@ -17,6 +17,12 @@
 <script src="ang/scotchAppService.js"></script>
 
 
+<link rel="stylesheet" href="bower-angular-translate-2.9.0.1/bower_components/angular-chart.js/dist/angular-chart.css" >
+
+<script src="bower-angular-translate-2.9.0.1/bower_components/Chart.js/Chart.js"></script>
+<script src="bower-angular-translate-2.9.0.1/bower_components/angular-chart.js/angular-chart.js"></script>
+
+
 </head>
 
 <!-- define angular controller -->

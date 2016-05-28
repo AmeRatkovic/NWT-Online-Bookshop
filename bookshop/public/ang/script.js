@@ -1,5 +1,5 @@
     // create the module and name it scotchApp
-    var scotchApp = angular.module('scotchApp', ['scotchApp.services','ngRoute','pascalprecht.translate']);
+    var scotchApp = angular.module('scotchApp', ['scotchApp.services','ngRoute','chart.js','pascalprecht.translate']);
  
     // configure our routes
     scotchApp.config(function($routeProvider) {
@@ -22,7 +22,7 @@
             // route for the contact page
             .when('/contact', {
                 templateUrl : 'pages/contact.html',
-                //controller  : 'RadarCtrl'
+                controller  : 'BarCtrl'
             })
 
             .when('/book/:idKnjiga', {
@@ -79,7 +79,15 @@ scotchApp.config(function($translateProvider) {
 });
 
 
+scotchApp.controller("BarCtrl", function ($scope) {
+  $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  $scope.series = ['Series A', 'Series B'];
 
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
+});
 
  scotchApp.controller('BookController', function($scope, $http, $routeParams) {
     $scope.idKnjiga = $routeParams.idKnjiga;
