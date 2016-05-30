@@ -1,14 +1,23 @@
-<div class="jumbotron text-center"   ng-controller="BarCtrl">
+<div class="jumbotron text-center"  >
 
 	<h1>Contact Page</h1>
+ 
 
-
-
-<h2>{{ 'HEADLINE' | translate }}</h2>
+    <h2>{{ 'HEADLINE' | translate }}</h2>
 <p>{{ 'INTRO_TEXT' | translate }}</p>
 
-<canvas id="bar" class="chart chart-bar"
+ <div >
+<canvas id="bar" class="chart chart-bar"  style="width: 300px;height: 100px;"
   chart-data="data" chart-labels="labels"> chart-series="series"
 </canvas>
+</div>
 
 </div>
+
+
+
+
+
+
+
+

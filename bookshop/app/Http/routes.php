@@ -68,6 +68,12 @@ Route::get('knjiga/{knjiga}', 'KnjigaController@show');
 Route::post('knjiga/{knjiga}', 'KnjigaController@store');
 Route::delete('knjiga/{knjiga}', 'KnjigaController@destroy');
 Route::put('knjiga/{knjiga}', 'KnjigaController@update');
+
+Route::resource('comments', 'CommentController');
+Route::get('comments/{comments}', 'CommentController@show');
+Route::post('comments/{comments}', 'CommentController@store');
+Route::delete('comments/{comments}', 'CommentController@destroy');
+
   
 });
 

@@ -1,23 +1,23 @@
 angular.module('commentService', [])
 
-.factory('Knjiga', function($http) {
+.factory('Comment', function($http) {
 
     return {
         // get all the comments
         get : function() {
-            return $http.get('http://localhost:8000/api/knjiga');
+            return $http.get('http://localhost:8000/api/comments');
         },
         save : function(commentData) {
             return $http({
                 method: 'POST',
-                url: 'http://localhost:8000/api/knjiga',
+                url: 'http://localhost:8000/api/comments',
                 headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-                data: $.param(commentData)
+                data: 'username='+commentData.username+'&komentar='+commentData.komentar
             });
         },
 
         destroy : function(id) {
-            return $http.delete('http://localhost:8000/api/knjiga/' + id);
+            return $http.delete('http://localhost:8000/api/comments/' + id);
         }
     }
 

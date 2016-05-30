@@ -9,7 +9,14 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 
   <!-- SPELLS -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
+   
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+
+    
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
 <script src="bower-angular-translate-2.9.0.1/angular-translate.js"></script>
@@ -18,6 +25,7 @@
 <script src="js/controllers/mainCtrl.js"></script> <!-- load our controller -->
         <script src="js/services/commentService.js"></script> <!-- load our service -->
         <script src="js/app.js"></script> <!-- load our application -->
+        <script src="bower_components/ngCart/dist/ngCart.js"></script>
 
 <script src="bower-angular-translate-2.9.0.1/bower_components/angular-chart.js/dist/angular-chart.css" >
 </script>

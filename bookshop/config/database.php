@@ -54,10 +54,10 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'bookshop'),
-            'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', ''),
+            'host'      =>  'localhost',
+            'database'  => 'bookshop',
+            'username'  =>  'root',
+            'password'  =>  '',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
@@ -98,7 +98,6 @@ return [
     | the migrations on disk haven't actually been run in the database.
     |
     */
-
     'migrations' => 'migrations',
 
     /*

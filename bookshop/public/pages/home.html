@@ -1,5 +1,5 @@
-<form ng-submit="loadMore()" ng-app="scotchApp" ng-controller="mainController">
-<div  ng-repeat="knjiga in knjigas | orderBy:'-Naslov'" >
+<formng-app="scotchApp" ng-controller="mainController">
+<div  ng-repeat="knjiga in knjigas " >
 
 <table border="0" cellpadding="0" cellspacing="0">
 
@@ -19,7 +19,7 @@
                                                 <tr>
                                                     <td rowspan="6" width="197" align="center" style="
   
-    padding-right: 20px;"><img src=' {{ knjiga.Slika }} '  width="202" height="200" border="0" alt="">
+    padding-right: 20px;"> <img src=" {{ knjiga.Slika }} "  width="202" height="200" border="0" alt="">
                                                     </td>
                                                     <td width="590">
 
@@ -40,9 +40,11 @@
  <td width="90" height="45" align="left">  
 
 
+ 
  <p><a href="#" ng-click="deleteComment(knjiga.idKnjiga)" class="text-muted"><h3> Delete </h3></a>
  </p>
-
+ 
+    <ngcart-addtocart id="{{ knjiga.idKnjiga }}" name="{{ knjiga.Naslov }}" price="{{ knjiga.Cijena }}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
  </td>
  
                                                 </tr>
@@ -75,6 +77,10 @@
    
 </table>
 </div>
+<div>
 
-       <button type="submit" class="btn btn-primary btn-lg"> Next page</button>
+    <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+
+
+</div>
   </form>
