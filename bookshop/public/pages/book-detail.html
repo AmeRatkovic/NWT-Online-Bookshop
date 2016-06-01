@@ -1,20 +1,21 @@
 
-    <h2>Detaljno</h2>            
-                    <table border="0" cellpadding="0" cellspacing="0" align="center" ng-app="scotchApp" ng-controller="BookController">
+              
+                    <table border="0" cellpadding="0" cellspacing="0" align="center" ng-app="scotchApp" ng-controller="BookController"> 
                         <tr>
                             <td>
                                 
                                 <table border="0" cellpadding="0" cellspacing="0" style=" width: 800px;">
                                    
                                         <td width="400" height="222">
-                                            <table border="0" cellpadding="0" cellspacing="0">
+
+                                            <table border="0" cellpadding="0" cellspacing="0"><h2>Detaljno</h2> 
                                                 <tr>
                                                     <td rowspan="6" width="197" align="center" style="
   
     padding-right: 20px;"><img src=" knjiga.Slika " width="202" height="200" border="0" alt="">
                                                     </td>
                                                     <td width="590">
-                                                    <div   > <h3>#{{ knjiga.idKnjiga }} {{ knjiga.Naslov }} </h3></div>
+                                                    <div   > <h3> {{ knjiga.Naslov }} </h3></div>
 <div ><h5>Genre: {{ knjiga.Kategorija }}  </h5> </div>
  <div ><h5>Publisher: {{ knjiga.Izdavac }}</h5></div>
  <div ><h5>Number of pages: {{ knjiga.BrojStrana }}</h5></div>
@@ -48,8 +49,34 @@
                                     </tr>
                                    
                                 </table>
-   <form ng-submit="submitComment()"> <!-- ng-submit will disable the default form action and use our function -->
+   
     
+    <!-- LOADING ICON =============================================== -->
+    <!-- show loading icon if the loading variable is set to true -->
+    <p class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></p>
+    
+    <!-- THE COMMENTS =============================================== -->
+    <!-- hide these comments if the loading variable is true -->
+    <div style='z-index: 10;
+    background: #D7F7DE;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+    margin-bottom: 20px;'class="comment" ng-hide="loading" ng-repeat="comment in comments" ng-if="comment.idKnjiga==knjiga.idKnjiga">
+        <h3 class="avatar ng-scope"> {{ comment.username }}</h3>
+        <h6> {{ comment.created_at }}</h6>
+        <p>{{ comment.komentar }}</p>
+    
+        <p><a href="#" ng-click="deleteComment(comment.id,knjiga.idKnjiga)" class="text-muted">Delete</a></p>
+    </div>
+
+    <form ng-submit="submitComment()"> <!-- ng-submit will disable the default form action and use our function -->
+    <fieldset style="
+    padding-bottom: 0px;
+    border-bottom-width: 10px;
+    height: 237.9px;
+    margin-bottom: 20px;
+">
+<br><br>
+    <legend>Leave a comment:</legend>
         <!-- AUTHOR -->
         <div class="form-group">
             <input type="text" class="form-control input-sm" name="username" ng-model="commentData.username" placeholder="Name">
@@ -64,17 +91,5 @@
         <div class="form-group text-right">   
             <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </div>
+           </fieldset>
     </form>
-    
-    <!-- LOADING ICON =============================================== -->
-    <!-- show loading icon if the loading variable is set to true -->
-    <p class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></p>
-    
-    <!-- THE COMMENTS =============================================== -->
-    <!-- hide these comments if the loading variable is true -->
-    <div class="comment" ng-hide="loading" ng-repeat="comment in comments" ng-if="comment.idKnjiga==knjiga.idKnjiga">
-        <h3>Comment #{{ comment.id }} <small>by {{ comment.username }}</h3>
-        <p>{{ comment.komentar }}</p>
-    
-        <p><a href="#" ng-click="deleteComment(comment.id,knjiga.idKnjiga)" class="text-muted">Delete</a></p>
-    </div>

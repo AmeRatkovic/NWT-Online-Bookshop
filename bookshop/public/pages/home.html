@@ -1,86 +1,167 @@
-<formng-app="scotchApp" ng-controller="mainController">
-<div  ng-repeat="knjiga in knjigas " >
+<div class="row content" ng-app="scotchApp" ng-controller="mainController">
 
-<table border="0" cellpadding="0" cellspacing="0">
+    <!-- Main Content 
 
-                
-                
-
-                <td >
-                
-                    <table border="0" cellpadding="0" cellspacing="0" align="center">
-                        <tr>
-                            <td>
-                                
-                                <table border="0" cellpadding="0" cellspacing="0" style=" width: 800px;">
-                                   
-                                        <td width="400" height="222">
-                                            <table border="0" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td rowspan="6" width="197" align="center" style="
-  
-    padding-right: 20px;"> <img src=" {{ knjiga.Slika }} "  width="202" height="200" border="0" alt="">
-                                                    </td>
-                                                    <td width="590">
-
-                                                    <div   > <a ng-href = '#/book/{{knjiga.idKnjiga}}'>#{{ knjiga.idKnjiga }} {{ knjiga.Naslov }} </a></div>
-<div ><h5>Genre: {{ knjiga.Kategorija }}  </h5> </div>
- <div ><h5>Publisher: {{ knjiga.Izdavac }}</h5></div>
- <div ><h5>Number of pages: {{ knjiga.BrojStrana }}</h5></div>
-                                                    </td>
-
-                                                </tr>
+<ngcart-addtocart id="{{ knjiga.idKnjiga }}" name="{{ knjiga.Naslov }}" price="{{ knjiga.Cijena }}" quantity="1" quantity-max="5"></ngcart-addtocart>
+    -->
+    <section class="main-content col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
 
 
-                                                <tr>
-                                                <td width="90" height="45" align="left"><div class="item_price"><h3>Price: {{ knjiga.Cijena }} KM</h3></div>
+        <div class="product"  ng-repeat="knjiga in knjigas">
 
-                                                </td>
+            <div class="product-image">
+                <img src="{{ knjiga.Slika }}" alt="">
+                <a ng-href = '#/book/{{knjiga.idKnjiga}}' class="product-hover">
+                    <i class="icons icon-eye-1"></i> {{ 'DETAIL' | translate }}
+                </a>
+            </div>
 
- <td width="90" height="45" align="left">  
-
-
- 
- <p><a href="#" ng-click="deleteComment(knjiga.idKnjiga)" class="text-muted"><h3> Delete </h3></a>
- </p>
- 
-    <ngcart-addtocart id="{{ knjiga.idKnjiga }}" name="{{ knjiga.Naslov }}" price="{{ knjiga.Cijena }}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
- </td>
- 
-                                                </tr>
-
-                                                <tr>
-                                                <td width="90" align="center">
-
-                                                </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        
-                                    </tr>
-                                   
-                                </table>
-                                
-                            </td>
-
-                           <td>
-                         </tr>   
-                    </table>
-                </td></tr>
-    
-            </table>
-        </td>
-    
-   
-                
+            <div class="product-info" style="padding-bottom: 10px;height: 100px;">
+                <h5 class="naslov"><a ng-href = '#/book/{{knjiga.idKnjiga}}'>{{ knjiga.idKnjiga }} {{ knjiga.Naslov }}</a></h5>
+            
+                <p>Publisher: {{ knjiga.Izdavac }}</p>
               
-   
-</table>
-</div>
-<div>
+                <span class="price">Price: {{ knjiga.Cijena }} KM</span>
+                <div class="rating readonly-rating" data-score="4"></div>
+            </div>
 
+            <div class="product-actions">
+                                                <span class="add-to-cart">
+                                                <ngcart-addtocart id="{{ knjiga.idKnjiga }}" name="{{ knjiga.Naslov }}" price="{{ knjiga.Cijena }}" quantity="1" quantity-max="5">
+                                                </ngcart-addtocart>  </span >
+
+                                                  
+
+                                                </span>
+                                                <span class="add-to-favorites">
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-heart-empty"></i>
+                                                        <span class="action-name">Add to wishlist</span>
+                                                    </span>
+                                                </span>
+                                                <span class="add-to-compare">
+                                                    <span class="action-wrapper" ng-click="deleteComment(knjiga.idKnjiga)" >
+                                                        <i class="icons icon-docs"></i>
+                                                        <span class="action-name" >
+ </span>
+                                                    </span>
+                                                </span>
+            </div>
+
+        </div>
+<div style="
+    padding-top: 500px;
+    padding-right: 330px;
+">
     <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 
+</div>
+    </section>
+    <!-- /Main Content -->
+
+
+    <!-- Sidebar -->
+    <aside class="sidebar col-lg-3 col-md-3 col-sm-3  col-lg-pull-9 col-md-pull-9 col-sm-pull-9" style="
+    margin-top: 0px;">
+
+        <!-- Categories -->
+        <div class="row sidebar-box purple">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="sidebar-box-heading">
+                    <i class="icons icon-folder-open-empty"></i>
+                    <h4>{{ 'CATEGORIES' | translate }}</h4>
+                </div>
+
+                <div class="sidebar-box-content">
+                    <ul>
+                        <li><a href="#/top10">{{ 'Top 10' | translate }} <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#/justpublished">{{ 'Just published' | translate }} <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#">{{ 'Magazines' | translate }} <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#">{{ 'Special offer' | translate }} <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#">Video Games &amp; Consoles <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#">Car Audio, Video &amp; GPS <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#">Best Sellers <i class="icons icon-right-dir"></i></a></li>
+                        <li><a href="#">Shop by Brands <i class="icons icon-right-dir"></i></a></li>
+                        <li><a class="purple" href="#">All Categories</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bestsellers -->
+        <div class="row sidebar-box red" >
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="sidebar-box-heading">
+                    <i class="icons icon-award-2"></i>
+                    <h4>{{ 'BESTSELLERS' | translate }}</h4>
+                </div>
+
+                <div class="sidebar-box-content" ng-repeat="knjiga in knjigas | orderBy:'-idKnjiga' | limitTo:5">
+                    <table class="bestsellers-table">
+
+                        <tr>
+                            <td class="product-thumbnail"><a ng-href = '#/knjiga-detalj/{{idKnjiga}}'><img src="{{ knjiga.Slika }}" alt=""></a></td>
+                            <td class="product-info">
+                                <p>{{ knjiga.idKnjiga }} {{ knjiga.Naslov }}</p>
+                                <span class="price">{{ knjiga.Cijena }}</span>
+                            </td>
+                        </tr>
+
+
+
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /Bestsellers -->
+        <!-- Specials -->
+        <div class="row products-row sidebar-box orange">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+               
+
+                <!-- Carousel Heading -->
+                <div class="carousel-heading no-margin">
+
+                    <h4><a href="#/top10"class="icons icon-magic">Specials </a> </h4>
+                    <div class="carousel-arrows">
+                        
+                    </div>
+
+                </div>
+                <!-- /Carousel Heading -->
+            </div>
+
+            <!-- Carousel -->
+            <div class="carousel owl-carousel-wrap col-lg-12 col-md-12 col-sm-12">
+
+                <div class="owl-carousel" data-max-items="1">
+
+            
+
+
+
+                </div>
+
+            </div>
+            <!-- / Carousel -->
+
+
+        </div>
+        <!-- /Specials -->
+
+
+    </aside>
+    <!-- /Sidebar -->
 
 </div>
-  </form>

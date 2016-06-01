@@ -1,0 +1,54 @@
+ <div class="product"  style="
+    border-top-width: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+"ng-repeat="knjiga in knjigas | orderBy:'-idKnjiga' | limitTo:10">
+
+            <div class="product-image">
+                <img src="{{ knjiga.Slika }}" alt="">
+                <a ng-href = '#/book/{{knjiga.idKnjiga}}' class="product-hover">
+                    <i class="icons icon-eye-1"></i> {{ 'DETAIL' | translate }}
+                </a>
+            </div>
+
+            <div class="product-info" style="padding-bottom: 10px;height: 100px;">
+                <h5 class="naslov"><a ng-href = '#/book/{{knjiga.idKnjiga}}'>{{ knjiga.idKnjiga }} {{ knjiga.Naslov }}</a></h5>
+            
+                <p>Publisher: {{ knjiga.Izdavac }}</p>
+              
+                <span class="price">Price: {{ knjiga.Cijena }} KM</span>
+                <div class="rating readonly-rating" data-score="4"></div>
+            </div>
+
+            <div class="product-actions">
+                                                <span class="add-to-cart">
+                                                <ngcart-addtocart id="{{ knjiga.idKnjiga }}" name="{{ knjiga.Naslov }}" price="{{ knjiga.Cijena }}" quantity="1" quantity-max="5">
+                                                </ngcart-addtocart>  </span >
+
+                                                  
+
+                                                </span>
+                                                <span class="add-to-favorites">
+                                                    <span class="action-wrapper">
+                                                        <i class="icons icon-heart-empty"></i>
+                                                        <span class="action-name">Add to wishlist</span>
+                                                    </span>
+                                                </span>
+                                                <span class="add-to-compare">
+                                                    <span class="action-wrapper" ng-click="deleteComment(knjiga.idKnjiga)" >
+                                                        <i class="icons icon-docs"></i>
+                                                        <span class="action-name" >
+ </span>
+                                                    </span>
+                                                </span>
+            </div>
+
+        </div>
+<div style="
+    padding-top: 500px;
+    padding-right: 330px;
+">
+
+</div>

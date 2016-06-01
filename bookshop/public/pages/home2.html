@@ -1,0 +1,242 @@
+<div class="row content">
+
+	<!-- Main Content -->
+	<section class="main-content col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
+
+
+		<div class="product" ng-hide="loading" ng-repeat="knjiga in knjigas">
+
+			<div class="product-image">
+				<img src="{{ knjiga.Slika }}" alt="">
+				<a ng-href = '#/knjiga-detalj/{{idKnjiga}}' class="product-hover">
+					<i class="icons icon-eye-1"></i> {{ 'DETAIL' | translate }}
+				</a>
+			</div>
+
+			<div class="product-info">
+				<h5 class="naslov"><a ng-href = '#/knjiga-detalj/{{idKnjiga}}'>{{ knjiga.idKnjiga }} {{ knjiga.Naslov }}</a></h5>
+				<p>Genre: {{ knjiga.Kategorija }} </p>
+				<p>Publisher: {{ knjiga.Izdavac }}</p>
+				<p>Number of pages: {{ knjiga.BrojStrana }}</p>
+				<span class="price">Price: {{ knjiga.Cijena }} KM</span>
+				<div class="rating readonly-rating" data-score="4"></div>
+			</div>
+
+			<div class="product-actions">
+												<span class="add-to-cart">
+													<span class="action-wrapper">
+														<i class="icons icon-basket-2"></i>
+														<span class="action-name">Add to cart</span>
+													</span >
+												</span>
+												<span class="add-to-favorites">
+													<span class="action-wrapper">
+														<i class="icons icon-heart-empty"></i>
+														<span class="action-name">Add to wishlist</span>
+													</span>
+												</span>
+												<span class="add-to-compare">
+													<span class="action-wrapper">
+														<i class="icons icon-docs"></i>
+														<span class="action-name">Add to Compare</span>
+													</span>
+												</span>
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /Main Content -->
+
+
+
+
+	<!-- Sidebar -->
+	<aside class="sidebar col-lg-3 col-md-3 col-sm-3  col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
+
+		<!-- Categories -->
+		<div class="row sidebar-box purple">
+
+			<div class="col-lg-12 col-md-12 col-sm-12">
+
+				<div class="sidebar-box-heading">
+					<i class="icons icon-folder-open-empty"></i>
+					<h4>{{ 'CATEGORIES' | translate }}</h4>
+				</div>
+
+				<div class="sidebar-box-content">
+					<ul>
+						<li><a href="#">{{ 'COMPUTERS' | translate }} <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">{{ 'SPORTS' | translate }} <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">{{ 'MAGAZINES' | translate }} <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">{{ 'FOOD' | translate }} <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">Video Games &amp; Consoles <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">Car Audio, Video &amp; GPS <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">Best Sellers <i class="icons icon-right-dir"></i></a></li>
+						<li><a href="#">Shop by Brands <i class="icons icon-right-dir"></i></a></li>
+						<li><a class="purple" href="#">All Categories</a></li>
+					</ul>
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<!-- Bestsellers -->
+		<div class="row sidebar-box red" ng-hide="loading">
+
+			<div class="col-lg-12 col-md-12 col-sm-12">
+
+				<div class="sidebar-box-heading">
+					<i class="icons icon-award-2"></i>
+					<h4>{{ 'BESTSELLERS' | translate }}</h4>
+				</div>
+
+				<div class="sidebar-box-content" ng-repeat="knjiga in knjigas">
+					<table class="bestsellers-table">
+
+						<tr>
+							<td class="product-thumbnail"><a ng-href = '#/knjiga-detalj/{{idKnjiga}}'><img src="{{ knjiga.Slika }}" alt=""></a></td>
+							<td class="product-info">
+								<p>{{ knjiga.idKnjiga }} {{ knjiga.Naslov }}</p>
+								<span class="price">{{ knjiga.Cijena }}</span>
+							</td>
+						</tr>
+
+
+
+					</table>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /Bestsellers -->
+		<!-- Specials -->
+		<div class="row products-row sidebar-box orange">
+
+			<div class="col-lg-12 col-md-12 col-sm-12">
+
+				<!-- Carousel Heading -->
+				<div class="carousel-heading no-margin">
+
+					<h4><i class="icons icon-magic"></i> Specials</h4>
+					<div class="carousel-arrows">
+						<i class="icons icon-left-dir"></i>
+						<i class="icons icon-right-dir"></i>
+					</div>
+
+				</div>
+				<!-- /Carousel Heading -->
+
+			</div>
+
+			<!-- Carousel -->
+			<div class="carousel owl-carousel-wrap col-lg-12 col-md-12 col-sm-12">
+
+				<div class="owl-carousel" data-max-items="1">
+
+					<!-- Slide -->
+					<div>
+						<!-- Carousel Item -->
+						<div class="product">
+
+							<div class="product-image">
+								<img src="assets/slike/products/sample1.jpg" alt="Product1">
+								<a href="products_page_v1.html" class="product-hover">
+									<i class="icons icon-eye-1"></i> Quick View
+								</a>
+							</div>
+
+							<div class="product-info">
+								<h5><a href="products_page_v1.html">Lorem ipsum dolor sit amet</a></h5>
+								<span class="price">$281.00</span>
+								<div class="rating readonly-rating" data-score="4"></div>
+							</div>
+
+							<div class="product-actions">
+											<span class="add-to-cart">
+												<span class="action-wrapper">
+													<i class="icons icon-basket-2"></i>
+													<span class="action-name">Add to cart</span>
+												</span >
+											</span>
+											<span class="add-to-favorites">
+												<span class="action-wrapper">
+													<i class="icons icon-heart-empty"></i>
+													<span class="action-name">Add to wishlist</span>
+												</span>
+											</span>
+											<span class="add-to-compare">
+												<span class="action-wrapper">
+													<i class="icons icon-docs"></i>
+													<span class="action-name">Add to Compare</span>
+												</span>
+											</span>
+							</div>
+
+						</div>
+						<!-- /Carousel Item -->
+					</div>
+					<!-- /Slide -->
+
+
+					<!-- Slide -->
+					<div>
+						<!-- Carousel Item -->
+						<div class="product">
+
+							<div class="product-image">
+								<img src="assets/slike/products/sample2.jpg" alt="Product1">
+								<a href="products_page_v1.html" class="product-hover">
+									<i class="icons icon-eye-1"></i> Quick View
+								</a>
+							</div>
+
+							<div class="product-info">
+								<h5><a href="products_page_v1.html">Lorem ipsum dolor sit amet</a></h5>
+								<span class="price">$281.00</span>
+								<div class="rating readonly-rating" data-score="4"></div>
+							</div>
+
+							<div class="product-actions">
+											<span class="add-to-cart">
+												<span class="action-wrapper">
+													<i class="icons icon-basket-2"></i>
+													<span class="action-name">Add to cart</span>
+												</span >
+											</span>
+											<span class="add-to-favorites">
+												<span class="action-wrapper">
+													<i class="icons icon-heart-empty"></i>
+													<span class="action-name">Add to wishlist</span>
+												</span>
+											</span>
+											<span class="add-to-compare">
+												<span class="action-wrapper">
+													<i class="icons icon-docs"></i>
+													<span class="action-name">Add to Compare</span>
+												</span>
+											</span>
+							</div>
+
+						</div>
+						<!-- /Carousel Item -->
+					</div>
+					<!-- /Slide -->
+
+				</div>
+
+			</div>
+			<!-- / Carousel -->
+
+
+		</div>
+		<!-- /Specials -->
+
+
+	</aside>
+	<!-- /Sidebar -->
+
+</div>

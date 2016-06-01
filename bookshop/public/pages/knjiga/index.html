@@ -1,0 +1,142 @@
+<div class="col-md-6 col-md-offset-3 backend">
+    <ng-include src="'pages/admin.html'"></ng-include>
+<div  ng-controller="knjigaController">
+    <!-- Table-to-load-the-data Part -->
+    <table class="table" id="bck">
+        <thead>
+        <tr>
+            <th style="min-width: 80px;">ID</th>
+            <th style="min-width: 80px;">Naslov</th>
+            <th style="min-width: 80px;">Izdavac</th>
+            <!--<th style="min-width: 80px;">Autor</th>-->
+            <th style="min-width: 80px;">Kategorija</th>
+            <!--<th style="min-width: 80px;">Slika</th>-->
+            <th style="min-width: 80px;">Cijena</th>
+            <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">{{ 'CREATE' | translate }}</button></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="knjiga in knjigas">
+            <td>{{ knjiga.idKnjiga }}</td>
+            <td>{{ knjiga.Naslov }}</td>
+            <td>{{ knjiga.Izdavac }}</td>
+            <!--<td>{{ knjiga.Autor }}</td>-->
+            <td>{{ knjiga.Kategorija }}</td>
+            <!--<td>{{ knjiga.Slika }}</td>-->
+            <td>{{ knjiga.Cijena }}</td>
+            <td>
+                <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', knjiga.idKnjiga)">{{ 'EDIT' | translate }}</button>
+                <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(knjiga.idKnjiga)">{{ 'DELETE' | translate }}</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- End of Table-to-load-the-data Part -->
+    <!-- Modal (Pop up when detail button clicked) -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{form_title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="frmEmployees" class="form-horizontal" novalidate="">
+
+                        <div class="form-group error">
+                            <label class="col-sm-3 control-label">{{ 'NAME' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control has-error" value="{{Naslov}}" ng-model="knjiga.Naslov">
+
+                            </div>
+                        </div>
+<!--
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'AUTOR' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="autorid" name="Izdavac" placeholder="Email Address" value="{{knjiga.Autor}}"
+                                       ng-model="knjiga.Autor">
+
+                            </div>
+                        </div>
+-->
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'PUBLISHER' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{Izdavac}}" ng-model="knjiga.Izdavac" >
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'GENRE' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{Kategorija}}" ng-model="knjiga.Kategorija">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'ISBN' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{ISBN}}" ng-model="knjiga.ISBN">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'PRICE' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{Cijena}}" ng-model="knjiga.Cijena">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'NUMBER' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{BrojStrana}}" ng-model="knjiga.BrojStrana">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Author ID</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{autorid}}" ng-model="knjiga.autorid">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'DATE' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{Datum}}" ng-model="knjiga.Datum" >
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'PICTURE' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{Slika}}" ng-model="knjiga.Slika">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">{{ 'ABOUT' | translate }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{Opis}}"  ng-model="knjiga.Opis" >
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" >{{ 'SAVE' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

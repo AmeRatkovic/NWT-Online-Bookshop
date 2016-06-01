@@ -72,7 +72,8 @@ class KnjigaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $knjiga=Knjiga::find($id);
+        return $knjiga;
     }
 
     /**

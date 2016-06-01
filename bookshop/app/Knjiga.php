@@ -8,9 +8,9 @@ class Knjiga extends Model
 {
     protected $primaryKey = 'idKnjiga';
 
-    protected $fillable = [
+     protected $fillable = array(
         'Naslov', 'Izdavac', 'Datum','Kategorija','ISBN','Opis','Slika','Cijena','BrojStrana','Popust',
-    ];
+    );
 
     public function hasWritten(){
     return $this->hasMany('Autor','autorid');

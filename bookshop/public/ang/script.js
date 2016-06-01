@@ -1,6 +1,6 @@
     // create the module and name it scotchApp
-    var scotchApp = angular.module('scotchApp', ['ngAnimate', 'commentService','ui.bootstrap','scotchApp.services','chart.js','ngCart','ngRoute','pascalprecht.translate']);
- 
+    var scotchApp = angular.module('scotchApp', ['ngAnimate','ui.bootstrap','scotchApp.services','chart.js','ngCart','ngRoute','pascalprecht.translate'])
+    .constant('API_URL', 'http://localhost:8000/api/');
     // configure our routes
     scotchApp.config(function($routeProvider) {
         $routeProvider
@@ -34,11 +34,64 @@
         controller  : 'BookController',
         service : 'scotchApp.services'
         })
+        .when('/top10', {
+        templateUrl: 'pages/top10.html',
+        controller  : 'BookController'
+       // service : 'scotchApp.services'
+        })
+.when('/justpublished', {
+        templateUrl: 'pages/justpublished.html',
+        controller  : 'mainController',
+       service : 'scotchApp.services'
+        })
             .when('/comment', {
         templateUrl: 'pages/comment.html',
         controller  : 'CommentController',
         service : 'commentService'
-        });
+        })
+     .when('/search', {
+        templateUrl: 'pages/search.html',
+        controller  : 'mainController'
+       // service : 'commentService'
+        })
+   .when('/administracija', {
+            templateUrl: 'pages/administracija/index.html',
+            controller: 'knjigaController',
+
+        })
+            //ruta za knjigu
+            .when('/knjiga', {
+                templateUrl: 'pages/knjiga/index.html',
+                controller: 'knjigaController',
+            })
+            //ruta za kategoriju
+            .when('/autor', {
+                templateUrl: 'pages/autor/index.html',
+                controller: 'autorController',
+            })
+        //ruta za kategoriju
+            .when('/izdavac', {
+                templateUrl: 'pages/izdavac/index.html',
+                controller: 'izdavacController',
+            })
+            //ruta za usera
+
+            //Prijava i Registracija
+            .when('/prijava',{
+                templateUrl:'pages/administracija/login.html',
+                controller:'LoginController'
+            })
+            .when('/registracija',{
+                templateUrl:'pages/administracija/register.html',
+                controller:'UserController'
+            })
+            .when('/user', {
+                templateUrl : 'pages/1.html',
+                controller  : 'userController',
+            })
+
+   .otherwise({ redirectTo: '/' });
+
 
     });
 
@@ -87,6 +140,425 @@ scotchApp.config(function($translateProvider) {
   });
   $translateProvider.preferredLanguage('en');
 });
+
+
+
+
+
+ scotchApp.controller('userController', ['$scope', '$http', function ($scope, $http) {
+        angular.extend($scope,{
+            dologin: function(loginForm){
+                $http({
+                    headers: {'Content-Type': 'application/json'},
+                    url:baseUrl + 'auth',
+                    method: "POST",
+                    data: {
+                        email: $scope.users.username,
+                        password: $scope.users.password
+                    }
+                    }).success(function(response){
+                        console.log(response);
+                    });
+                }
+        });
+
+    }]);
+
+ scotchApp.controller('auserController', function($scope, $http, API_URL) {
+        //retrieve employees listing from API
+        $http.get(API_URL + "user")
+            .success(function(response) {
+                $scope.users = response;
+            });
+
+        //show modal form
+        $scope.toggle = function(modalstate, id) {
+            $scope.modalstate = modalstate;
+
+            switch (modalstate) {
+                case 'add':
+                    $scope.form_title = 'Dodaj novog usera';
+                    break;
+                case 'edit':
+                    $scope.form_title = "Izmjeni usera";
+                    $scope.id = id;
+                    $http.get(API_URL + 'user/' + id)
+                        .success(function(response) {
+                            console.log(response);
+                            $scope.user = response;
+                        });
+                    break;
+                default:
+                    break;
+            }
+            console.log(id);
+            $('#myModal').modal('show');
+        }
+
+        //save new record / update existing record
+        $scope.save = function(modalstate, id) {
+            var url = API_URL + "user";
+
+            //append employee id to the URL if the form is in edit mode
+            if (modalstate === 'edit') {
+                url += "/" + id;
+                $http({
+                    method: 'PUT',
+                    url: url,
+                    data: $.param($scope.user),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+                }).error(function (response) {
+                    console.log(response);
+                    alert('This is embarassing. An error has occured. Please check the log for details');
+                });
+
+
+            }
+            //ovo ispraviti
+            else (modalstate === 'add')
+            {
+                url += "/" + id;
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: $.param($scope.user),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+
+                });
+            }
+        }
+
+
+        //delete record
+        $scope.confirmDelete = function(id) {
+            var isConfirmDelete = confirm('Are you sure you want this record?');
+            if (isConfirmDelete) {
+                $http({
+                    method: 'DELETE',
+                    url: API_URL + 'knjiga/' + id
+                }).
+                success(function(data) {
+                    console.log(data);
+                    location.reload();
+                }).
+                error(function(data) {
+                    console.log(data);
+                    alert('Unable to delete');
+                });
+            } else {
+                return false;
+            }
+        }
+    });
+
+
+    /////////////////////////////////////////////KNJIGA KONTROLER////////////////////////////////////////////////
+scotchApp.controller('knjigaController', function($scope, $http, API_URL, Knjiga) {
+        //retrieve employees listing from API
+         $http({
+                    url: 'http://localhost:8000/api/knjiga',
+                    method: "GET",
+                    params: {page:  $scope.currentpage}
+                }).success(function(data, status, headers, config) {
+                    $scope.knjigas = data.data;
+                    });
+
+        //show modal form
+        $scope.toggle = function(modalstate, id) {
+            $scope.modalstate = modalstate;
+
+            switch (modalstate) {
+                case 'add':
+                    $scope.form_title = 'Dodaj novu knjigu';
+                    break;
+                case 'edit':
+                    $scope.form_title = "Izmjeni knjigu";
+                    $scope.id = id;
+                    $http.get(API_URL + 'knjiga/' + id)
+                        .success(function(response) {
+                            console.log(response);
+                            $scope.knjiga = response;
+                        });
+                    break;
+                default:
+                    break;
+            }
+            console.log(id);
+            $('#myModal').modal('show');
+        }
+
+        //save new record / update existing record
+        $scope.save = function(modalstate, id) {
+            var url = API_URL + "knjiga";
+
+            //append employee id to the URL if the form is in edit mode
+            if (modalstate === 'edit') {
+                url += "/" + id;
+                $http({
+                    method: 'PUT',
+                    url: url,
+                    data: $.param($scope.knjiga),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+                }).error(function (response) {
+                    console.log(response);
+                    alert('This is embarassing. An error has occured. Please check the log for details');
+                });
+
+
+            }
+                //ovo ispraviti
+            else (modalstate === 'add')
+            {
+                url += "/" + id;
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: $.param($scope.knjiga),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+
+                });
+            }
+        }
+
+
+        //delete record
+        $scope.confirmDelete = function(id) {
+            var isConfirmDelete = confirm('Are you sure you want this record?');
+            if (isConfirmDelete) {
+                $http({
+                    method: 'DELETE',
+                    url: API_URL + 'knjiga/' + id
+                }).
+                success(function(data) {
+                    console.log(data);
+                    location.reload();
+                }).
+                error(function(data) {
+                    console.log(data);
+                    alert('Unable to delete');
+                });
+            } else {
+                return false;
+            }
+        }
+    });
+    ///////////////////////////////////////////AUTOR KONTROLER ////////////////////////////////////////////////
+    scotchApp.controller('autorController', function($scope, $http, API_URL) {
+        //retrieve employees listing from API
+        $http.get(API_URL + "autor")
+            .success(function(response) {
+                $scope.autors = response;
+            });
+
+        //show modal form
+        $scope.toggle = function(modalstate, id) {
+            $scope.modalstate = modalstate;
+
+            switch (modalstate) {
+                case 'add':
+                    $scope.form_title = 'Dodaj noovg izdavaca';
+                    break;
+                case 'edit':
+                    $scope.form_title = "Izmjeni izdavaca";
+                    $scope.id = id;
+                    $http.get(API_URL + 'autor/' + id)
+                        .success(function(response) {
+                            console.log(response);
+                            $scope.autor = response;
+                        });
+                    break;
+                default:
+                    break;
+            }
+            console.log(id);
+            $('#myModal').modal('show');
+        }
+
+        //save new record / update existing record
+        $scope.save = function(modalstate, id) {
+            var url = API_URL + "autor";
+
+            //append employee id to the URL if the form is in edit mode
+            if (modalstate === 'edit') {
+                url += "/" + id;
+                $http({
+                    method: 'PUT',
+                    url: url,
+                    data: $.param($scope.autor),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+                }).error(function (response) {
+                    console.log(response);
+                    alert('This is embarassing. An error has occured. Please check the log for details');
+                });
+
+
+            }
+            //ovo ispraviti
+            else (modalstate === 'add')
+            {
+                url += "/" + id;
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: $.param($scope.autor),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+
+                });
+            }
+        }
+
+
+        //delete record
+        $scope.confirmDelete = function(id) {
+            var isConfirmDelete = confirm('Are you sure you want this record?');
+            if (isConfirmDelete) {
+                $http({
+                    method: 'DELETE',
+                    url: API_URL + 'autor/' + id
+                }).
+                success(function(data) {
+                    console.log(data);
+                    location.reload();
+                }).
+                error(function(data) {
+                    console.log(data);
+                    alert('Unable to delete');
+                });
+            } else {
+                return false;
+            }
+        }
+    });
+
+    /////////////////////////////////////////////IZDAVAC KONTROLER////////////////////////////////////////////////
+    scotchApp.controller('izdavacController', function($scope, $http, API_URL) {
+        //retrieve employees listing from API
+        $http.get(API_URL + "izdavac")
+            .success(function(response) {
+                $scope.izdavacs = response;
+            });
+
+        //show modal form
+        $scope.toggle = function(modalstate, id) {
+            $scope.modalstate = modalstate;
+
+            switch (modalstate) {
+                case 'add':
+                    $scope.form_title = 'Dodaj noovg izdavaca';
+                    break;
+                case 'edit':
+                    $scope.form_title = "Izmjeni izdavaca";
+                    $scope.id = id;
+                    $http.get(API_URL + 'izdavac/' + id)
+                        .success(function(response) {
+                            console.log(response);
+                            $scope.izdavac = response;
+                        });
+                    break;
+                default:
+                    break;
+            }
+            console.log(id);
+            $('#myModal').modal('show');
+        }
+
+        //save new record / update existing record
+        $scope.save = function(modalstate, id) {
+            var url = API_URL + "izdavac";
+
+            //append employee id to the URL if the form is in edit mode
+            if (modalstate === 'edit') {
+                url += "/" + id;
+                $http({
+                    method: 'PUT',
+                    url: url,
+                    data: $.param($scope.izdavac),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+                }).error(function (response) {
+                    console.log(response);
+                    alert('This is embarassing. An error has occured. Please check the log for details');
+                });
+
+
+            }
+            //ovo ispraviti
+            else (modalstate === 'add')
+            {
+                url += "/" + id;
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: $.param($scope.izdavac),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                }).success(function (response) {
+                    console.log(response);
+                    location.reload();
+
+                });
+            }
+        }
+
+
+        //delete record
+        $scope.confirmDelete = function(id) {
+            var isConfirmDelete = confirm('Are you sure you want this record?');
+            if (isConfirmDelete) {
+                $http({
+                    method: 'DELETE',
+                    url: API_URL + 'izdavac/' + id
+                }).
+                success(function(data) {
+                    console.log(data);
+                    location.reload();
+                }).
+                error(function(data) {
+                    console.log(data);
+                    alert('Unable to delete');
+                });
+            } else {
+                return false;
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -173,14 +645,50 @@ scotchApp.controller ('KorpaCtrl', ['$scope', '$http', 'ngCart', function($scope
     ngCart.setTaxRate(0);
     ngCart.setShipping(0);    
 }]);
-scotchApp.controller("BarCtrl", function ($scope) {
-  $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  $scope.series = ['Series A', 'Series B'];
+scotchApp.controller("BarCtrl", function ($scope,$http) {
+  
+var x14 =0;
+var x15 =0;
+var x16 =0;
+var x17 =0;
+var x18 =0;
 
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
+$scope.users = {};
+
+ 
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:8000/api/user'
+       
+    }).success(function(data) {
+            $scope.users = data;
+            
+for(var i=0; i<data.length; i++) {    
+if($scope.users[i].created_at.substring(0,4)=="2014")
+x14++;
+if($scope.users[i].created_at.substring(0,4)=="2015")
+x15++;
+if($scope.users[i].created_at.substring(0,4)=="2016")
+x16++;
+if($scope.users[i].created_at.substring(0,4)=="2017")
+x17++;
+if($scope.users[i].created_at.substring(0,4)=="2018")
+x18++;
+}
+
+$scope.labels = ['2014','2015', '2016', '2017', '2018'];
+  $scope.series = ['Series A'];  
+ $scope.data = [
+    [x14, x15,x16,x17,x18] ];
+
+
+    }).error(function (data, status) {
+        console.log("Request Failed");
+            
+    });
+     
+
 });
 
 
@@ -217,6 +725,10 @@ $scope.commentData = {};
             $scope.comments = data;
             $scope.loading = false;
         });
+
+
+
+
 
     // function to handle submitting the form
     // SAVE A COMMENT ================
@@ -281,12 +793,14 @@ scotchApp.controller('TranslateController', function($translate, $scope) {
     $scope.commentData = {};
 
     
-
+   $scope.query = {}
+    $scope.queryBy = '$'
+    $scope.orderProp="Naslov";    
 $scope.totalItems = 0;
   $scope.currentPage = 1;
 
-
-$scope.pageChanged = function() {
+$scope.pageChanged = function( ) {
+     console.log("aaa");
    $http({
                     url: 'http://localhost:8000/api/knjiga',
                     method: "GET",
@@ -296,8 +810,11 @@ $scope.pageChanged = function() {
                     $scope.currentpage = data.current_page;
                     $scope.nextpage = Math.round((data.total-1)/10)+1;
                      $scope.totalItems=data.total;
+                          console.log("bbb");
+
                 });
   };
+
 
     // loading variable to show the spinning loading icon
     $scope.loading = true;
@@ -306,6 +823,7 @@ $scope.pageChanged = function() {
     // use the function we created in our service
     // GET ALL COMMENTS ==============
     $scope.knjigas = [];
+    $scope.justp = [];
             $scope.lastpage=1;
             $scope.nextpage=1;
             $scope.init = function() {
@@ -316,10 +834,13 @@ $scope.pageChanged = function() {
                     params: {page:  $scope.lastpage}
                 }).success(function(data, status, headers, config) {
                     $scope.knjigas = data.data;
+                     $scope.lastpage=data.last_page;
                     $scope.currentpage = data.current_page;
                     $scope.nextpage = Math.round((data.total-1)/10)+1;
                      $scope.totalItems=data.total;
+
                 });
+
             };
  
             $scope.init();
@@ -363,6 +884,7 @@ $scope.pageChanged = function() {
 $route.reload();
             });
     };
+
 $scope.loadMore = function() {
 
      if( $scope.nextpage>$scope.currentpage){
@@ -380,29 +902,15 @@ $scope.loadMore = function() {
  
                 });
 
-            }
+            };
 
             };
 
 
+ });
 
-    $scope.loadLess = function() {
-        if( $scope.lastpage > 0){
-                $scope.lastpage -=1;
-                $http({
-                    url: 'http://localhost:8000/api/knjiga',
-                    method: "GET",
-                    params: {page:  $scope.lastpage}
-                }).success(function (data, status, headers, config) {
- $scope.knjigas = data.data;
-                    $scope.currentpage = data.current_page;
-                  //  $scope.events = $scope.knjigas.concat(data.data);
- 
-                });
-            };
-        };
 
-});
+
 
     scotchApp.controller('aboutController', function($scope, $http, Knjiga) {
 
@@ -465,7 +973,4 @@ $scope.loadMore = function() {
 
 });
 
-    scotchApp.controller('contactController', function($scope) {
-        $scope.message = 'Contact us! JK. This is just a demo.';
-    });
-
+  

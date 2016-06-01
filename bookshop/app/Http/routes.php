@@ -69,12 +69,28 @@ Route::post('knjiga/{knjiga}', 'KnjigaController@store');
 Route::delete('knjiga/{knjiga}', 'KnjigaController@destroy');
 Route::put('knjiga/{knjiga}', 'KnjigaController@update');
 
+ Route::resource('autor', 'AutorController');
+    Route::get('autor/{id}', 'AutorController@show');
+    Route::post('autor/{id}', 'AutorController@store');
+    Route::delete('autor/{id}', 'AutorController@destroy');
+    Route::put('autor/{id}', 'AutorController@update');
+
+    Route::resource('izdavac', 'AutorController');
+    Route::get('izdavac/{id}', 'AutorController@show');
+    Route::post('izdavac/{id}', 'AutorController@store');
+    Route::delete('izdavac/{autor}', 'AutorController@destroy');
+    Route::put('izdavac/{autor}', 'AutorController@update');
+
 Route::resource('comments', 'CommentController');
 Route::get('comments/{comments}', 'CommentController@show');
 Route::post('comments/{comments}', 'CommentController@store');
 Route::delete('comments/{comments}', 'CommentController@destroy');
 
-  
+   Route::resource('user', 'UserController');
+    Route::get('user/{user}', 'UserController@show');
+    Route::post('user/{user}', 'UserController@store');
+    Route::delete('user/{user}', 'UserController@destroy');
+    Route::put('user/{user}', 'UserController@update');
 });
 
 
@@ -98,6 +114,8 @@ Route::group(['middleware' => 'web'], function () {
 Route::get('/', function () {
     return view('index');
 });
+
+
     Route::auth();
 
     Route::get('autor/{autor}', 'AutorController@show')->middleware('isAdmin');

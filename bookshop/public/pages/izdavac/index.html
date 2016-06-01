@@ -1,0 +1,81 @@
+<div class="col-md-6 col-md-offset-3 backend">
+    <ng-include src="'pages/admin.html'"></ng-include>
+    <div  ng-controller="izdavacController">
+        <!-- Table-to-load-the-data Part -->
+        <table class="table" id="bck">
+            <thead>
+            <tr>
+                <th style="min-width: 80px;">ID</th>
+                <th style="min-width: 80px;">Ime</th>
+                <th style="min-width: 80px;">Lokacija</th>
+                <th style="min-width: 80px;">E-mail</th>
+                <th style="min-width: 80px;">Telefon</th>
+                <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">{{ 'CREATE' | translate }}</button></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="izdavac in izdavacs">
+                <td>{{ izdavac.idIzdavac }}</td>
+                <td>{{ izdavac.Ime}}</td>
+                <td>{{ izdavac.Lokacija}}</td>
+                <td>{{ izdavac.Email }}</td>
+                <td>{{ izdavac.Telefon }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', izdavac.idIzdavac)">{{ 'EDIT' | translate }}</button>
+                    <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(izdavac.idIzdavac)">{{ 'DELETE' | translate }}</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- End of Table-to-load-the-data Part -->
+        <!-- Modal (Pop up when detail button clicked) -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{form_title}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form name="frmEmployees" class="form-horizontal" novalidate="">
+
+                            <div class="form-group error">
+                                <label class="col-sm-3 control-label">{{ 'NAME' | translate }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control has-error" value="{{Ime}}" ng-model="izdavac.Ime"  ng-required= "true">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">{{ 'LOKACIJA' | translate }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" value="{{Lokacija}}" ng-model="izdavac.Lokacija"  ng-required= "true">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">{{ 'EMAIL' | translate }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" value="{{Email}}" ng-model="izdavac.Email"  ng-required= "true">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-3 control-label">{{ 'PHONE' | translate }}</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" value="{{Telefon}}" ng-model="izdavac.Telefon"  ng-required= "true">
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" >{{ 'SAVE' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

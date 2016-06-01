@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Autor;
-use Gate;
+//use Gate;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,12 +67,8 @@ class AutorController extends Controller
     public function show($id)
     {
         //return Autor::find($id);
-        $autor = Autor::findOrFail($id);
+      
 
-        if (Gate::denies('user-autor', $autor)) {
-           echo 'Acces denied';
-        }
-        else
             return Autor::find($id);
     }
 
